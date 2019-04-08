@@ -22,5 +22,6 @@
   - difference
   - signal/wait (make a core sleep until it receives a signal from another core)
   
+  - The game's programming language should be extensible through plugins.
 
 
