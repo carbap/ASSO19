@@ -8,6 +8,7 @@
 - At any given time, each core points to a single object in the stack, so its instructions will operate on that object. A specific intruction is needed to change which object the core's instructions will operate on. Basically, regular instructions do not have a parameter to specify which object to operate on.
 - Errors in the code will be displayed to the player
 - The player can simulate running all the instructions or go step by step. The output will be updated at each step.
+- The game's programming language should be extensible through plugins.
 
 - Available instructions:
   - create shape (receives shape name, size and position)
@@ -21,7 +22,5 @@
   - intersect
   - difference
   - signal/wait (make a core sleep until it receives a signal from another core)
-  
-  - The game's programming language should be extensible through plugins.
 
 
