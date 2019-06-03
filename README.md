@@ -70,4 +70,4 @@ draw inter2<br>
 Run `npm start` command on `/proj` directory
 
 ## Run
-Just open `/proj/index.html` on browser. Simple as that. If you're just trying out the application than there's no need to compile it first.
+Just open `/proj/index.html` on browser. Simple as that. If you're just trying out the application, there's no need to compile it first.
