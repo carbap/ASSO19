@@ -1,0 +1,22 @@
+{
+  "name": "kerneldraw",
+  "version": "1.0.0",
+  "description": "problemas:",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && npm run webpack",
+    "webpack": "webpack -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbap/ASSO19_Kernel_Draw.git"
+  },
+  "homepage": "https://github.com/carbap/ASSO19_Kernel_Draw#readme",
+  "dependencies": {
+    "linked-list-typescript": "^1.0.15",
+    "webpack": "^4.29.6"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.3"
+  }
+}
