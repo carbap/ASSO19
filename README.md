@@ -66,8 +66,10 @@ create circle c3<br>
 create intersection inter2 inter1 circle3<br>
 draw inter2<br>
 
-## Compile
-Run `npm start` command on `/proj` directory
-
 ## Run
 Just open `/proj/index.html` on browser. Simple as that. If you're just trying out the application, there's no need to compile it first.
+
+## Compile
+1. Go to `/proj` directory.
+2. Run `npm install` command, if you haven't installed node modules yet.
+3. Run `npm start` command.
