@@ -13,7 +13,6 @@
   },
   "homepage": "https://github.com/carbap/ASSO19_Kernel_Draw#readme",
   "dependencies": {
-    "linked-list-typescript": "^1.0.15",
     "webpack": "^4.29.6"
   },
   "devDependencies": {
