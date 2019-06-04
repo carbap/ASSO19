@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html>
 <body>
-
     <script src="./dist/bundle.js"></script>
 
-    <h1>SimpleDraw.js</h1>
-
-    <div id="render_alternatives">
-        <button id="canvas_button" type="button">Canvas</button>
-        <button id="SVG_button"type="button">SVG</button>
-    </div>
-
-    <div id="rendering_area">
-        <canvas id="canvas" width="800" height="600"></canvas>
-    </div>
+    <h1>Kernel Draw</h1>
     
+    <div class="core">
+        <label>Core 1</label>
+        <textarea cols="50" rows ="15"></textarea>
+    </div>
+    <div class="core">
+        <label>Core 2</label>
+        <textarea cols="50" rows ="15"></textarea>
+    </div>
+    <div class="core">
+        <label>Core 3</label>
+        <textarea cols="50" rows ="15"></textarea>
+    </div>
 
-    <form id="REPL_form">
-        Introduce your instruction
-        <textarea id="instruction" cols="300" rows ="1">draw square 2 2 4</textarea>
-        <input type="submit" value="Execute">
-    </form>
-
-    <br><br>
-
-    <button id="undo_button" type="button">Undo</button>
-    <button id="redo_button"type="button">Redo</button>
-
-    <p>Simple example: draw square 2 2 4</p>
-    <p>3 AND's example: draw square 2 2 4 AND draw rect 10 10 50 70 AND draw square 10 10 50</p>
+    <button id="compile">Compile</button>
+    <button id="step">Step</button>
+    <button id="run">Run</button>
 
 </body>
 </html>
