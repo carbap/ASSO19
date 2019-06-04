@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/carbap/ASSO19_Kernel_Draw#readme",
   "dependencies": {
+    "@types/paper": "^0.11.14",
     "webpack": "^4.29.6"
   },
   "devDependencies": {
