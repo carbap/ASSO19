@@ -1,10 +1,12 @@
-import { Path } from "paper";
-import { Shape } from "./Shape";
+import { Path } from 'paper';
+import { Shape } from './Shape';
 
 export class Circle extends Shape {
+    private radius: number;
     
-    public constructor(centerX: number, centerY: number, private radius: number) {
-        super(centerX, centerY);
+    public constructor(ID: string, centerX: number, centerY: number, radius: number) {
+        super(ID, centerX, centerY);
+        this.radius = radius;
     }
 
     public scale(factor: number): void {

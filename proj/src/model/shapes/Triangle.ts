@@ -1,10 +1,10 @@
-import { Path } from "paper";
-import { Shape } from "./Shape";
+import { Path } from 'paper';
+import { Shape } from './Shape';
 
 export class Triangle extends Shape {
     
-    public constructor(centerX: number, centerY: number) {
-        super(centerX, centerY);
+    public constructor(ID: string, centerX: number, centerY: number) {
+        super(ID, centerX, centerY);
     }
 
     public scale(factor: number): void {

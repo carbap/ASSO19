@@ -1,4 +1,4 @@
-import * as c from './command'
+import * as c from './model/commands/Command'
 import * as s from './shape'
 
 export abstract class Expression {
