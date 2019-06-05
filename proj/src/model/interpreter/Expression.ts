@@ -1,5 +1,5 @@
 import { Command } from '../commands/Command';
-import { CreateShapeExpression } from './CreateShapeExpression';
+import { CreateExpression } from './CreateExpression';
 import { TranslateExpression } from './TranslateExpression';
 import { ScaleExpression } from './ScaleExpression';
 import { DrawExpression } from './DrawExpression';
@@ -30,7 +30,7 @@ export class Expression {
         let expression: Expression;
         switch(instruction) {
             case 'create':
-                expression = new CreateShapeExpression(this);
+                expression = new CreateExpression(this);
                 break;
             case 'translate':
                 expression = new TranslateExpression(this);
