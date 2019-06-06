@@ -60,9 +60,29 @@ export class Kernel {
     }
 
     public existsShape(shapeID: string): boolean {
-        //TODO: verificar se existe alguma shape com este ID
+        for(var shape of this.runtimeShapes) {
+            if(shape.getID() === shapeID)
+                return true;
+        }
+        return false;
     }
     
+    public createShape(shape: Shape): void {
+        this.runtimeShapes.push(shape);
+    }
+
+    public drawShape(shape: Shape): void {
+        this.drawnShapes.push(shape);
+    }
+
+    public getShape(shapeID: string): Shape | null {
+        for(var shape of this.runtimeShapes) {
+            if(shape.getID() === shapeID)
+                return shape;
+        }
+        return null;
+    }
+
     public getRuntimeShapes(): Shape[] {
         return this.runtimeShapes;
     }

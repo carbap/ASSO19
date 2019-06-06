@@ -13,7 +13,7 @@ export class TranslateCommand extends Command {
         this.translationY = translationY;
     }
 
-    public execute(){
-        //Invoce kernel methods to manipulate shapes
+    public execute() {
+        this.shape.translate(this.translationX, this.translationY);
     }
 }

@@ -30,7 +30,7 @@ export class GeneralCreateExpression extends Expression {
             return false;
         }
 
-        let ID: string = args[2];
+        let ID: string = args[1];
         if(this.rootExpression.getKernel().existsShape(ID)) {
             (<any> this.rootExpression).addError("Duplicated ID. Shape has already been created with ID `" + ID + "`");
             return false;

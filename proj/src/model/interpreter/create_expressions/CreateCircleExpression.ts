@@ -7,6 +7,7 @@ export class CreateCircleExpression extends Expression {
 
     public interpret(context: string): boolean {
         // <ID> <centerX> <centerY> <radius>
+        
         let args: string[] = context.split(' ');
 
         if(args.length != 4) {
@@ -26,6 +27,7 @@ export class CreateCircleExpression extends Expression {
 
         let circle = new Circle(ID, centerX, centerY, radius);
         let command = new CreateShapeCommand(this.rootExpression.getKernel(), circle);
+        (<any> this.rootExpression).setCommand(command);
 
         return true;
     }
