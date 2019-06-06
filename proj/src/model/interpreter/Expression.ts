@@ -1,12 +1,16 @@
+import { Kernel } from '../Kernel';
 import { Command } from '../commands/Command';
-import { CreateExpression } from './CreateExpression';
-import { TranslateExpression } from './TranslateExpression';
-import { ScaleExpression } from './ScaleExpression';
-import { DrawExpression } from './DrawExpression';
+import * as MainExpressions from '.';
+
 
 export class Expression {
-    protected errors: Array<string> = [];
-    protected command: Command = null;
+    private kernel: Kernel;
+    private errors: Array<string> = [];
+    private command: Command = null;
+
+    constructor(kernel: Kernel) {
+        this.kernel = kernel;
+    }
 
     protected addError(error: string) {
         this.errors.push(error);
@@ -24,22 +28,26 @@ export class Expression {
         return this.command;
     }
 
+    public getKernel(): Kernel {
+        return this.kernel;
+    }
+
     public interpret(context: string): boolean {
         let instruction: string = context.split(' ')[0];
 
         let expression: Expression;
         switch(instruction) {
             case 'create':
-                expression = new CreateExpression(this);
+                expression = new MainExpressions.GeneralCreateExpression(this);
                 break;
             case 'translate':
-                expression = new TranslateExpression(this);
+                expression = new MainExpressions.TranslateExpression(this);
                 break;
             case 'scale':
-                expression = new ScaleExpression(this);
+                expression = new MainExpressions.ScaleExpression(this);
                 break;
             case 'draw':
-                expression = new DrawExpression(this);
+                expression = new MainExpressions.DrawExpression(this);
                 break;
             default:
                 this.addError("There's no instruction called " + instruction);

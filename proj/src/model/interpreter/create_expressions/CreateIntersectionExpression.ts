@@ -1,8 +1,8 @@
-import { Command } from '../commands/Command';
-import { Expression } from './Expression';
+import { Command } from '../../commands/Command';
+import { Expression } from '../Expression';
 
 export class CreateIntersectionExpression extends Expression {
-    constructor(){ super(); }
+    constructor(private rootExpression: Expression){ super(null); }
 
     public interpret(context: string): boolean {
         //algures rootExpression.addError()

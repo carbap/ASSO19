@@ -1,11 +1,10 @@
-import { Command } from '../commands/Command';
-import { Expression } from './Expression';
+import { Command } from '../../commands/Command';
+import { Expression } from '../Expression';
 
-export class DrawExpression extends Expression {
+export class CreateTriangleExpression extends Expression {
     constructor(private rootExpression: Expression){ super(null); }
 
     public interpret(context: string): boolean {
-        // atraves do id da shape, ir buscar objeto shape ao kernel
         //algures rootExpression.addError()
         //rootExpression.setCommand()
         return false;

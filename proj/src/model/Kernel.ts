@@ -59,11 +59,15 @@ export class Kernel {
         }
     }
 
-    public getShape() {
-
+    public existsShape(shapeID: string): boolean {
+        //TODO: verificar se existe alguma shape com este ID
     }
     
     public getRuntimeShapes(): Shape[] {
+        return this.runtimeShapes;
+    }
+
+    public getDrawnShapes(): Shape[] {
         return this.runtimeShapes;
     }
 }
