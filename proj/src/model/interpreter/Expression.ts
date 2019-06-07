@@ -2,11 +2,10 @@ import { Kernel } from '../Kernel';
 import { Command } from '../commands/Command';
 import * as MainExpressions from '.';
 
-
 export class Expression {
     private kernel: Kernel;
     private errors: Array<string> = [];
-    private command: Command = null;
+    private command: Command | null = null;
 
     constructor(kernel: Kernel) {
         this.kernel = kernel;
@@ -24,7 +23,7 @@ export class Expression {
         return this.errors;
     }
 
-    public getCommand(): Command {
+    public getCommand(): Command | null{
         return this.command;
     }
 

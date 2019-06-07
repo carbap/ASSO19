@@ -12,5 +12,9 @@ export abstract class Command {
         this.duration = duration;
     }
 
+    public getDuration(): number {
+        return this.duration;
+    }
+
     abstract execute(): void; // Operates on kernel
 }

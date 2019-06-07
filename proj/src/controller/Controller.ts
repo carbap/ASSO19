@@ -15,8 +15,7 @@ export class Controller {
         if(this.model.compile())
         {
             // this.view.activate step and run buttons
-        }
-        else{
+        } else {
             // this.view.disactivate step and run buttons
         }
     }
