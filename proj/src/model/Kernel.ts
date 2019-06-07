@@ -10,7 +10,6 @@ export class Kernel {
 
     private coreCompilers: [CoreCompiler, CoreCompiler, CoreCompiler]; // Contains a compiler for each core
 
-    private interpreter: Expression = new Expression(this);
     private errors: Array<string> = [];
     private commands: Array<Command> = []; //use Iterator
     private commandIterator: number = 0; // Index of the next command to be executed
@@ -34,29 +33,46 @@ export class Kernel {
         this.buildSucceeded = false;
     }
 
+    public hasInstructionsToCompile() {
+        for(var compiler of this.coreCompilers) {
+            if(compiler.hasInstructionsToCompile())
+                return true;
+        }
+        return false;
+    }
+
     public compile(): boolean {
         this.clearBuild();
 
-        let core1CurrInst = 0;
-        let core1InstAmount = this.core1.length;
-        let core1ExecTime = 0;
-        let core2CurrInst = 0;
-        let core2InstAmount = this.core2.length;
-        let core2ExecTime = 0;
-        let core3CurrInst = 0;
-        let core3InstAmount = this.core3.length;
-        let core3ExecTime = 0;
-
-        while(core1CurrInst < core1InstAmount - 1 ||
-            core2CurrInst < core2InstAmount - 1 ||
-            core3CurrInst < core3InstAmount - 1) {
+        while(this.hasInstructionsToCompile()) {
             
-            if()
-            let core1Instruction: string = this.core1[core1CurrInst]
-            this.interpreter = new Expression(this);
+            // Check what compiler will be available sooner
+            let nextCompiler: CoreCompiler = this.coreCompilers[0];
+            let timeUntilNextCompiler: number = 9999;
+            for(var compiler of this.coreCompilers) {
+                if(compiler.getTimeUntilNextInst() < timeUntilNextCompiler || compiler.hasInstructionsToCompile()) {
+                    nextCompiler = compiler;
+                    timeUntilNextCompiler = compiler.getTimeUntilNextInst();
+                }
+            }
 
-            let core1Instruction: Command = this.core1[core1CurrInst];
-            if(core1CurrInst < core1InstAmount - 1 && )
+            // Simulate time passing, by deducting nextCompiler current instruction duration on all compilers, before compiling the next instruction on nextCompiler
+            for(var compiler of this.coreCompilers) {
+                compiler.advanceTime(timeUntilNextCompiler);
+            }
+
+            // Compile next instruction
+            let interpreter: Expression = new Expression(this);
+            let nextCommand = nextCompiler.compileNext(interpreter);
+
+            // Check if compilation generated errors (Command is null)
+            if(nextCommand == null) {
+                this.errors = this.errors.concat(interpreter.getErrors());
+            } else { // If no errors appeared, add command
+                this.commands.push(nextCommand);
+            }
+            // TODO: averiguar se não é melhor para a compilaçao mal aparece o primeiro erro, 
+            // porque provavelmente vai dar problemas porque a duracao do comando nao é incrementada se der erro
         }
 
         // interpret core1, core2 and core3

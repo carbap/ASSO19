@@ -19,8 +19,12 @@ export class CoreCompiler {
         this.instructions = instructions;
     }
 
-    public advanceTime(elapsedTime: number) {
-        this.timeUntilNextInst -= elapsedTime;
+    public getTimeUntilNextInst(): number {
+        return this.timeUntilNextInst;
+    }
+
+    public advanceTime(elapsedTime: number): void {
+        this.timeUntilNextInst = this.timeUntilNextInst - elapsedTime >= 0 ? this.timeUntilNextInst - elapsedTime : 0;
     }
 
     public hasInstructionsToCompile(): boolean {
