@@ -17,12 +17,12 @@ export class Kernel {
 
     private runtimeShapes: Array<Shape> = []; // shapes CREATED by the user and their current state (might have suffered translates, rotations, etc...)
     private drawnShapes: Array<Shape> = []; // shapes who have been in a DRAW instruction (the shape state is the one at the time of the DRAW instruction, NOT the updated one)
-
+    // drawn shapes têm de ser cópias, porque se forem referencias, como so desenhamos no final, todas vao ter o estado final
     constructor(core1: string[], core2: string[], core3: string[]) {
         this.core1 = core1;
         this.core2 = core2;
         this.core3 = core3;
-        this.clearBuild();
+        this.coreCompilers = [new CoreCompiler(this.core1), new CoreCompiler(this.core2), new CoreCompiler(this.core3)];
     }
 
     private clearBuild() {
@@ -50,7 +50,7 @@ export class Kernel {
             let nextCompiler: CoreCompiler = this.coreCompilers[0];
             let timeUntilNextCompiler: number = 9999;
             for(var compiler of this.coreCompilers) {
-                if(compiler.getTimeUntilNextInst() < timeUntilNextCompiler || compiler.hasInstructionsToCompile()) {
+                if(compiler.getTimeUntilNextInst() < timeUntilNextCompiler && compiler.hasInstructionsToCompile()) {
                     nextCompiler = compiler;
                     timeUntilNextCompiler = compiler.getTimeUntilNextInst();
                 }
@@ -68,13 +68,21 @@ export class Kernel {
             // Check if compilation generated errors (Command is null)
             if(nextCommand == null) {
                 this.errors = this.errors.concat(interpreter.getErrors());
-            } else { // If no errors appeared, add command
+                break;
+            } else { // If no errors occurred. store and execute command (command needs to be executed because certain instructions require shapes already created for the interpreter to work)
+                nextCommand.execute();
                 this.commands.push(nextCommand);
             }
             // TODO: averiguar se não é melhor para a compilaçao mal aparece o primeiro erro, 
             // porque provavelmente vai dar problemas porque a duracao do comando nao é incrementada se der erro
+
+            //dar reset as shapes no final
         }
 
+        if(this.errors.length == 0) {
+            this.resetShapes();
+            this.buildSucceeded = true;
+        }
         // interpret core1, core2 and core3
         // var expression = new MasterExpression(this.core1)
         // expression.interpret()
@@ -125,6 +133,14 @@ export class Kernel {
 
     public drawShape(shape: Shape): void {
         this.drawnShapes.push(shape);
+    }
+
+    public resetShapes(): void {
+        for(var shape of this.runtimeShapes) {
+            shape.reset();
+        }
+        this.runtimeShapes = [];
+        this.drawnShapes = [];
     }
 
     public getShape(shapeID: string): Shape | null {

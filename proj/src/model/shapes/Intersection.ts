@@ -10,6 +10,12 @@ export class Intersection extends Shape {
         this.intersectedShapes = intersectedShapes;
     }
 
+    public reset() {
+        for(var shape of this.intersectedShapes){
+            shape.reset();
+        }
+    }
+
     public translate(offsetX: number, offsetY: number) {
         for(var shape of this.intersectedShapes){
             shape.translate(offsetX, offsetY);

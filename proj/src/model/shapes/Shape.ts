@@ -3,13 +3,19 @@ import { Point, Path } from 'paper';
 export abstract class Shape {
     private ID: string;
     protected center: Point;
+    private readonly centerOG: Point;
     protected angle: number = 0; // para rotaçao????
 
     public constructor(ID: string, centerX: number, centerY: number) {
         this.ID = ID;
         this.center = new Point(centerX, centerY);
+        this.centerOG = new Point(centerX, centerY);
     }
 
+    public reset() {
+        this.center = new Point(this.centerOG.x, this.centerOG.y);
+    }
+    
     public getID(): string {
         return this.ID;
     }

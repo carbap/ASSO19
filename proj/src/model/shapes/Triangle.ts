@@ -5,6 +5,9 @@ export class Triangle extends Shape {
     private point1: Point;
     private point2: Point;
     private point3: Point;
+    private point1OG: Point;
+    private point2OG: Point;
+    private point3OG: Point;
 
     public constructor(ID: string, p1X: number, p1Y: number, p2X: number, p2Y: number, p3X: number, p3Y: number) {
         // A triangle center is the average of its 3 points
@@ -15,6 +18,16 @@ export class Triangle extends Shape {
         this.point1 = new Point(p1X, p1Y);
         this.point2 = new Point(p2X, p2Y);
         this.point3 = new Point(p3X, p3Y);
+        this.point1OG = new Point(p1X, p1Y);
+        this.point2OG = new Point(p2X, p2Y);
+        this.point3OG = new Point(p3X, p3Y);
+    }
+
+    public reset() {
+        this.point1 = new Point(this.point1OG.x, this.point1OG.y);
+        this.point2 = new Point(this.point2OG.x, this.point2OG.y);
+        this.point3 = new Point(this.point3OG.x, this.point3OG.y);
+        super.reset();
     }
 
     public translate(offsetX: number, offsetY: number) {
