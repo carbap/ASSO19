@@ -2,20 +2,26 @@ import { Kernel } from './model/Kernel';
 import { UI } from './view/UI';
 import { Controller } from './controller/Controller';
 
-window.onload = () => {
+var model: Kernel = new Kernel();
+var controller: Controller;
 
+window.onload = () => {
+    console.log("BOASSSS");
     var core1 = "code from core1"; // TO DO: replace by document.getElementById
     var core2 = "code from core2";
     var core3 = "code from core3";
-    var model = new Kernel(core1, core2, core3);
 
     var canvas = null;
     var compileButton = document.getElementById('compile');
     var nextButton = document.getElementById('next');
     var runButton = document.getElementById('run');
-    var view = new UI(canvas, compileButton, nextButton, runButton);
+    var view: UI = new UI(canvas, compileButton, nextButton, runButton);
 
-    var controller = new Controller(model, view);
+    var core1Text = document.getElementById('core1_instructions');
+    var core2Text = document.getElementById('core2_instructions');
+    var core3Text = document.getElementById('core3_instructions');
+
+    controller = new Controller(model, view);
     
     if(compileButton)
         compileButton.addEventListener("click", controller.compile);

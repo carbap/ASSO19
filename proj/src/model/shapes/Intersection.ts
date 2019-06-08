@@ -33,4 +33,9 @@ export class Intersection extends Shape {
         // provavelmente vamos ter de ir buscar o path das varias shapes e UNION delas
         return new Path();
     }
+
+    public copy(): Intersection {
+        let intersectedShapesCopy: Shape[] = this.intersectedShapes.map(shape => { return shape.copy(); });
+        return new Intersection(this.ID, intersectedShapesCopy);
+    }
 }

@@ -24,4 +24,8 @@ export class Square extends Shape {
         // retornar paperjs quadrado
         return new Path();
     }
+
+    public copy(): Square {
+        return new Square(this.ID, this.center.x, this.center.y, this.size);
+    }
 }

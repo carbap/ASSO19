@@ -68,4 +68,8 @@ export class Triangle extends Shape {
         */
         return new Path();
     }
+
+    public copy(): Triangle {
+        return new Triangle(this.ID, this.point1.x, this.point1.y, this.point2.x, this.point2.y, this.point3.x, this.point3.y);
+    }
 }

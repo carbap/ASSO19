@@ -24,4 +24,8 @@ export class Circle extends Shape {
         // retornar paperjs circulo
         return new Path.Circle(this.center, this.radius);
     }
+
+    public copy(): Circle {
+        return new Circle(this.ID, this.center.x, this.center.y, this.radius);
+    }
 }

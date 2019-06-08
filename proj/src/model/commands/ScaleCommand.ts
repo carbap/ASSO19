@@ -8,7 +8,7 @@ export class ScaleCommand extends Command {
     constructor(kernel: Kernel, shape: Shape, scaleFactor: number) {
         const DURATION = 3;
         super(kernel, shape, DURATION);
-        this.scaleFactor = this.scaleFactor;
+        this.scaleFactor = scaleFactor;
     }
 
     public execute() {

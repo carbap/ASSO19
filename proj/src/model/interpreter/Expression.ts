@@ -1,13 +1,14 @@
 import { Kernel } from '../Kernel';
 import { Command } from '../commands/Command';
-import * as MainExpressions from '.';
+import * as Commands from '../commands';
+import * as Shapes from '../shapes';
 
 export class Expression {
     private kernel: Kernel;
     private errors: Array<string> = [];
     private command: Command | null = null;
 
-    constructor(kernel: Kernel) {
+    constructor(kernel: Kernel = new Kernel()) {
         this.kernel = kernel;
     }
 
@@ -37,16 +38,16 @@ export class Expression {
         let expression: Expression;
         switch(instruction) {
             case 'create':
-                expression = new MainExpressions.GeneralCreateExpression(this);
+                expression = new GeneralCreateExpression(this);
                 break;
             case 'translate':
-                expression = new MainExpressions.TranslateExpression(this);
+                expression = new TranslateExpression(this);
                 break;
             case 'scale':
-                expression = new MainExpressions.ScaleExpression(this);
+                expression = new ScaleExpression(this);
                 break;
             case 'draw':
-                expression = new MainExpressions.DrawExpression(this);
+                expression = new DrawExpression(this);
                 break;
             default:
                 this.addError("There's no instruction called " + instruction);
@@ -55,5 +56,270 @@ export class Expression {
 
         let contextArguments = context.substr(context.indexOf(' ') + 1);
         return expression.interpret(contextArguments);
+    }
+}
+
+class DrawExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID>
+
+        let ID: string = context.split(' ')[0];
+        let shape = this.rootExpression.getKernel().getShape(ID);
+
+        if(shape == null) {
+            (<any> this.rootExpression).addError("There's no shape with ID `" + ID + "` to be drawn");
+            return false;
+        }
+
+        let command = new Commands.DrawCommand(this.rootExpression.getKernel(), shape);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class ScaleExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID> <scaleFactor>
+
+        let args: string[] = context.split(' ');
+
+        if(args.length != 2) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to scale shape. Should be: <ID> <scaleFactor>");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let scaleFactor: number = Number(args[1]);
+
+        if(isNaN(scaleFactor)) {
+            (<any> this.rootExpression).addError("<scaleFactor> must be a number");
+            return false;
+        }
+
+        let shape = this.rootExpression.getKernel().getShape(ID);
+
+        if(shape == null) {
+            (<any> this.rootExpression).addError("There's no shape with ID `" + ID + "` to be scaled");
+            return false;
+        }
+
+        let command = new Commands.ScaleCommand(this.rootExpression.getKernel(), shape, scaleFactor);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class TranslateExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID> <translateX> <translateY>
+
+        let args: string[] = context.split(' ');
+
+        if(args.length != 3) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to translate shape. Should be: <ID> <translateX> <translateY>");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let translateX: number = Number(args[1]);
+        let translateY: number = Number(args[2]);
+
+        if(isNaN(translateX) || isNaN(translateY)) {
+            (<any> this.rootExpression).addError("<translateX> and <translateY> must all be numbers");
+            return false;
+        }
+
+        let shape = this.rootExpression.getKernel().getShape(ID);
+
+        if(shape == null) {
+            (<any> this.rootExpression).addError("There's no shape with ID `" + ID + "` to be scaled");
+            return false;
+        }
+
+        let command = new Commands.TranslateCommand(this.rootExpression.getKernel(), shape, translateX, translateY);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class GeneralCreateExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        let args: string[] = context.split(' ');
+        let creationSubject: string = args[0];
+
+        let expression: Expression;
+        switch(creationSubject) {
+            case 'circle':
+                expression = new CreateCircleExpression(this.rootExpression);
+                break;
+            case 'triangle':
+                expression = new CreateTriangleExpression(this.rootExpression);
+                break;
+            case 'intersection':
+                expression = new CreateIntersectionExpression(this.rootExpression);
+                break;
+            default:
+                (<any> this.rootExpression).addError("There's no shape called `" + creationSubject + "` that can be created");
+                return false;
+        }
+
+        if(args.length == 1) {
+            (<any> this.rootExpression).addError("ID must be specified for the created shape");
+            return false;
+        }
+
+        let ID: string = args[1];
+        if(this.rootExpression.getKernel().existsShape(ID)) {
+            (<any> this.rootExpression).addError("Duplicated ID. Shape has already been created with ID `" + ID + "`");
+            return false;
+        }
+
+        let contextArguments = context.substr(context.indexOf(' ') + 1);
+        return expression.interpret(contextArguments);
+    }
+}
+
+class CreateCircleExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID> <centerX> <centerY> <radius>
+        
+        let args: string[] = context.split(' ');
+
+        if(args.length != 4) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create circle. Should be: <ID> <centerX> <centerY> <radius>");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let centerX: number = Number(args[1]);
+        let centerY: number = Number(args[2]);
+        let radius: number = Number(args[3]);
+
+        if(isNaN(centerX) || isNaN(centerY) || isNaN(radius)) {
+            (<any> this.rootExpression).addError("<centerX> <centerY> and <radius> must all be numbers");
+            return false;
+        }
+
+        let circle = new Shapes.Circle(ID, centerX, centerY, radius);
+        let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), circle);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class CreateIntersectionExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <newShapeID> <existingShape1ID> <existingShape2ID> ... <existingShapeNID>
+
+        let args: string[] = context.split(' ');
+
+        if(args.length < 3) {
+            (<any> this.rootExpression).addError("Not enough arguments to create intersection. You need at least 3 arguments. Should be: <newShapeID> <existingShape1ID> <existingShape2ID> ... <existingShapeNID>");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let shapesToIntersect = [];
+
+        let IDsToIntersect: string[] = context.substr(context.indexOf(' ') + 1).split(' ');
+        for(var id of IDsToIntersect) {
+            let shape = this.rootExpression.getKernel().getShape(id);
+
+            if(shape == null) {
+                (<any> this.rootExpression).addError("There's no shape with ID `" + id + "` to be intersected");
+                return false;
+            }
+
+            shapesToIntersect.push(shape);
+        }
+
+        let intersection = new Shapes.Intersection(ID, shapesToIntersect);
+        let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), intersection);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class CreateSquareExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID> <centerX> <centerY> <size>
+        
+        let args: string[] = context.split(' ');
+
+        if(args.length != 4) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create circle. Should be: <ID> <centerX> <centerY> <size>");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let centerX: number = Number(args[1]);
+        let centerY: number = Number(args[2]);
+        let size: number = Number(args[3]);
+
+        if(isNaN(centerX) || isNaN(centerY) || isNaN(size)) {
+            (<any> this.rootExpression).addError("<centerX> <centerY> and <size> must all be numbers");
+            return false;
+        }
+
+        let circle = new Shapes.Square(ID, centerX, centerY, size);
+        let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), circle);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class CreateTriangleExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID> <p1X> <p1Y> <p2X> <p2Y> <p3X> <p3Y>
+        
+        let args: string[] = context.split(' ');
+
+        if(args.length != 7) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create triangle. Should be: <ID> <p1X> <p1Y> <p2X> <p2Y> <p3X> <p3Y>");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let p1X: number = Number(args[1]);
+        let p1Y: number = Number(args[2]);
+        let p2X: number = Number(args[3]);
+        let p2Y: number = Number(args[4]);
+        let p3X: number = Number(args[5]);
+        let p3Y: number = Number(args[6]);
+
+        if(isNaN(p1X) || isNaN(p1Y) ||
+        isNaN(p2X) || isNaN(p2Y) ||
+        isNaN(p3X) || isNaN(p3Y)) {
+            (<any> this.rootExpression).addError("<p1X> <p1Y> <p2X> <p2Y> <p3X> and <p3Y> must all be numbers");
+            return false;
+        }
+
+        let triangle = new Shapes.Triangle(ID, p1X, p1Y, p2X, p2Y, p3X, p3Y);
+        let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), triangle);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
     }
 }

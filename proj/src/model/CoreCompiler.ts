@@ -2,8 +2,8 @@ import { Command } from './commands/Command';
 import { Expression } from './interpreter/Expression';
 
 export class CoreCompiler {
-    private instructions: Array<string> = [];
-    private instructionIterator: number = 0; // Index of the next command to be executed
+    private instructions: Array<string>;
+    private instructionIterator: number = 0; // Index of the next instruction to be compiled
 
     /** 
      * Everytime we compile an instruction, 
@@ -14,9 +14,14 @@ export class CoreCompiler {
      * And whenever a core executes and instruction, we need to reduce the instruction duration on all cores (to simulate time passing by)
     **/
     private timeUntilNextInst: number = 0;
+    private totalCoreDuration: number = 0;
 
     public constructor(instructions: string[]) {
         this.instructions = instructions;
+    }
+
+    public getTotalCoreDuration(): number {
+        return this.totalCoreDuration;
     }
 
     public getTimeUntilNextInst(): number {
@@ -28,7 +33,7 @@ export class CoreCompiler {
     }
 
     public hasInstructionsToCompile(): boolean {
-        return this.instructionIterator >= this.instructions.length;
+        return this.instructionIterator < this.instructions.length;
     }
 
     public compileNext(interpreter: Expression): Command | null {
@@ -44,6 +49,7 @@ export class CoreCompiler {
             return null;
 
         this.timeUntilNextInst = command.getDuration();
+        this.totalCoreDuration += command.getDuration();
         return command;
     }
 }

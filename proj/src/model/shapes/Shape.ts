@@ -1,7 +1,7 @@
 import { Point, Path } from 'paper';
 
 export abstract class Shape {
-    private ID: string;
+    protected ID: string;
     protected center: Point;
     private readonly centerOG: Point;
     protected angle: number = 0; // para rotaçao????
@@ -28,6 +28,8 @@ export abstract class Shape {
     abstract scale(factor: number): void;
 
     abstract draw(): Path; // mudar para classe do paper.js quando tivermos   // TO DO: remove?
+
+    abstract copy(): Shape; // Return a deep copy object of the current shape
 
     // NOTE: shapes should not know to draw themselves, that should be dependant of a view
     // so draw should be the execute of a command, that knows the existing shapes and the view on which to draw

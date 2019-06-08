@@ -10,6 +10,7 @@ export class DrawCommand extends Command {
     }
 
     public execute() {
-        this.kernel.drawShape(this.shape);
+        let shapeCopy: Shape = this.shape.copy();
+        this.kernel.drawShape(shapeCopy);
     }
 }
