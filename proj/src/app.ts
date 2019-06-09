@@ -23,14 +23,14 @@ window.onload = () => {
 
     controller = new Controller(model, view);
     
-    if(compileButton)
-        compileButton.addEventListener("click", controller.compile);
-    
+    if(compileButton) 
+        compileButton.onclick = controller.compile.bind(controller);
+
     if(nextButton)
-        nextButton.addEventListener("click", controller.next);
+        nextButton.onclick = controller.next.bind(controller);
 
     if(runButton)
-        runButton.addEventListener("click", controller.run);
+        runButton.onclick = controller.run.bind(controller);
 }
 
 /*function instructionSubmission(event: any){

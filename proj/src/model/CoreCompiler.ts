@@ -42,6 +42,7 @@ export class CoreCompiler {
             return null;
         
         let instruction: string = this.instructions[this.instructionIterator];
+        this.instructionIterator++;
         interpreter.interpret(instruction);
         let command = interpreter.getCommand();
 

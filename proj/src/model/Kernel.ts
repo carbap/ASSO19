@@ -69,11 +69,13 @@ export class Kernel {
 
             // Check if compilation generated errors (Command is null)
             if(nextCommand == null) {
+                console.log("ERRO: ", interpreter.getErrors());
                 this.errors = this.errors.concat(interpreter.getErrors());
                 break;
             } else { // If no errors occurred. store and execute command (command needs to be executed because certain instructions require shapes already created for the interpreter to work)
                 nextCommand.execute();
                 this.commands.push(nextCommand);
+                console.log("EXECUTOU ", nextCommand);
             }
         }
 
@@ -81,12 +83,16 @@ export class Kernel {
             // If no errors occured, just clean the generated shapes during commands execution because we are just compiling the code
             // and we don't intend to draw them. The objective of compilation is just to get the commands that will be excuted when
             // the instructions are run
-            this.resetShapes();
             this.buildSucceeded = true;
 
             let coreDurations = this.coreCompilers.map(core => { return core.getTotalCoreDuration(); });
             this.programExecutionTime = Math.max(...coreDurations);
+            console.log("EXECUTION TIME ", this.programExecutionTime);
+        } else {
+            //console.log("ERROS COMPILACAO: ", this.errors);
         }
+
+        this.resetShapes();
 
         return this.buildSucceeded;
     }
@@ -129,6 +135,7 @@ export class Kernel {
 
     public resetShapes(): void {
         for(var shape of this.runtimeShapes) {
+            console.log("a limpar ", shape);
             shape.reset();
         }
         this.runtimeShapes = [];
@@ -144,6 +151,7 @@ export class Kernel {
     }
 
     public setCores(core1: string[], core2: string[], core3: string[]) {
+        console.log("entrou set cores");
         this.core1 = core1;
         this.core2 = core2;
         this.core3 = core3;

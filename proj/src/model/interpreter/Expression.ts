@@ -34,7 +34,7 @@ export class Expression {
 
     public interpret(context: string): boolean {
         let instruction: string = context.split(' ')[0];
-
+        console.log("expression arguments: ", context.split(' '));
         let expression: Expression;
         switch(instruction) {
             case 'create':
@@ -140,7 +140,7 @@ class TranslateExpression extends Expression {
         let shape = this.rootExpression.getKernel().getShape(ID);
 
         if(shape == null) {
-            (<any> this.rootExpression).addError("There's no shape with ID `" + ID + "` to be scaled");
+            (<any> this.rootExpression).addError("There's no shape with ID `" + ID + "` to be translated");
             return false;
         }
 
@@ -162,6 +162,9 @@ class GeneralCreateExpression extends Expression {
         switch(creationSubject) {
             case 'circle':
                 expression = new CreateCircleExpression(this.rootExpression);
+                break;
+            case 'square':
+                expression = new CreateSquareExpression(this.rootExpression);
                 break;
             case 'triangle':
                 expression = new CreateTriangleExpression(this.rootExpression);
@@ -266,7 +269,7 @@ class CreateSquareExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 4) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to create circle. Should be: <ID> <centerX> <centerY> <size>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create square. Should be: <ID> <centerX> <centerY> <size>");
             return false;
         }
 
