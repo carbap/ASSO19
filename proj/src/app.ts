@@ -9,9 +9,9 @@ var controller: Controller;
 window.onload = () => {
     console.log("BOASSSS");
 
-    var rectangle = new Rectangle(new Point(0, 0), new Size(10, 10));
+    /*var rectangle = new Rectangle(new Point(0, 0), new Size(10, 10));
     var path = new Path.Rectangle(rectangle);
-    /*path.strokeColor = new Color('black');*/
+    path.strokeColor = new Color('black');*/
 
 
     var core1 = "code from core1"; // TO DO: replace by document.getElementById
