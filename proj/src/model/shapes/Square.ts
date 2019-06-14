@@ -11,6 +11,10 @@ export class Square extends Shape {
         this.sizeOG = size;
     }
 
+    public getSize(): number {
+        return this.size;
+    }
+
     public reset() {
         this.size = this.sizeOG;
         super.reset();
@@ -26,6 +30,6 @@ export class Square extends Shape {
     }
 
     public copy(): Square {
-        return new Square(this.ID, this.center.x, this.center.y, this.size);
+        return new Square(this.ID, this.center.getX(), this.center.getY(), this.size);
     }
 }

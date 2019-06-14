@@ -1,12 +1,19 @@
 import { Kernel } from './model/Kernel';
 import { UI } from './view/UI';
 import { Controller } from './controller/Controller';
+import { Rectangle, Path, Color, Point, Size } from 'paper';
 
 var model: Kernel = new Kernel();
 var controller: Controller;
 
 window.onload = () => {
     console.log("BOASSSS");
+
+    var rectangle = new Rectangle(new Point(0, 0), new Size(10, 10));
+    var path = new Path.Rectangle(rectangle);
+    /*path.strokeColor = new Color('black');*/
+
+
     var core1 = "code from core1"; // TO DO: replace by document.getElementById
     var core2 = "code from core2";
     var core3 = "code from core3";

@@ -1,13 +1,13 @@
-import { Point, Path } from 'paper';
-import { Shape } from './Shape';
+import { Path } from 'paper';
+import { Shape, Vector2 } from './Shape';
 
 export class Triangle extends Shape {
-    private point1: Point;
-    private point2: Point;
-    private point3: Point;
-    private point1OG: Point;
-    private point2OG: Point;
-    private point3OG: Point;
+    private point1: Vector2;
+    private point2: Vector2;
+    private point3: Vector2;
+    private point1OG: Vector2;
+    private point2OG: Vector2;
+    private point3OG: Vector2;
 
     public constructor(ID: string, p1X: number, p1Y: number, p2X: number, p2Y: number, p3X: number, p3Y: number) {
         // A triangle center is the average of its 3 points
@@ -15,44 +15,44 @@ export class Triangle extends Shape {
         let centerY = (p1Y + p2Y + p3Y)/3;
         super(ID, centerX, centerY);
 
-        this.point1 = new Point(p1X, p1Y);
-        this.point2 = new Point(p2X, p2Y);
-        this.point3 = new Point(p3X, p3Y);
-        this.point1OG = new Point(p1X, p1Y);
-        this.point2OG = new Point(p2X, p2Y);
-        this.point3OG = new Point(p3X, p3Y);
+        this.point1 = new Vector2(p1X, p1Y);
+        this.point2 = new Vector2(p2X, p2Y);
+        this.point3 = new Vector2(p3X, p3Y);
+        this.point1OG = new Vector2(p1X, p1Y);
+        this.point2OG = new Vector2(p2X, p2Y);
+        this.point3OG = new Vector2(p3X, p3Y);
     }
 
     public reset() {
-        this.point1 = new Point(this.point1OG.x, this.point1OG.y);
-        this.point2 = new Point(this.point2OG.x, this.point2OG.y);
-        this.point3 = new Point(this.point3OG.x, this.point3OG.y);
+        this.point1 = new Vector2(this.point1OG.getX(), this.point1OG.getY());
+        this.point2 = new Vector2(this.point2OG.getX(), this.point2OG.getY());
+        this.point3 = new Vector2(this.point3OG.getX(), this.point3OG.getY());
         super.reset();
     }
 
     public translate(offsetX: number, offsetY: number) {
-        this.point1.x += offsetX;
-        this.point1.y += offsetY;
+        this.point1.incX(offsetX);
+        this.point1.incY(offsetY);
 
-        this.point2.x += offsetX;
-        this.point2.y += offsetY;
+        this.point2.incX(offsetX);
+        this.point2.incY(offsetY);
 
-        this.point3.x += offsetX;
-        this.point3.y += offsetY;
+        this.point3.incX(offsetX);
+        this.point3.incY(offsetY);
 
         super.translate(offsetX, offsetY);
     }
 
     public scale(factor: number): void {
         // To every point, apply a scale on origin and then bring it to the triangle center again
-        this.point1.x = factor * (this.point1.x - this.center.x) + this.center.x;
-        this.point1.y += factor * (this.point1.y - this.center.y) + this.center.y;
+        this.point1.setX(factor * (this.point1.getX() - this.center.getX()) + this.center.getX());
+        this.point1.setY(factor * (this.point1.getY() - this.center.getY()) + this.center.getY());
 
-        this.point2.x += factor * (this.point2.x - this.center.x) + this.center.x;
-        this.point2.y += factor * (this.point2.y - this.center.y) + this.center.y;
+        this.point2.setX(factor * (this.point2.getX() - this.center.getX()) + this.center.getX());
+        this.point2.setY(factor * (this.point2.getY() - this.center.getY()) + this.center.getY());
 
-        this.point3.x += factor * (this.point3.x - this.center.x) + this.center.x;
-        this.point3.y += factor * (this.point3.y - this.center.y) + this.center.y;
+        this.point3.setX(factor * (this.point3.getX() - this.center.getX()) + this.center.getX());
+        this.point3.setY(factor * (this.point3.getY() - this.center.getY()) + this.center.getY());
     }
 
     public draw(): Path {
@@ -70,6 +70,8 @@ export class Triangle extends Shape {
     }
 
     public copy(): Triangle {
-        return new Triangle(this.ID, this.point1.x, this.point1.y, this.point2.x, this.point2.y, this.point3.x, this.point3.y);
+        return new Triangle(this.ID, this.point1.getX(), this.point1.getY(),
+            this.point2.getX(), this.point2.getY(),
+            this.point3.getX(), this.point3.getY());
     }
 }

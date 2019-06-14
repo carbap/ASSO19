@@ -20,12 +20,12 @@ export class Circle extends Shape {
         this.radius *= factor;
     }
 
-    public draw(): Path.Circle {
+    /* public draw(): Path.Circle {
         // retornar paperjs circulo
         return new Path.Circle(this.center, this.radius);
-    }
+    } */
 
     public copy(): Circle {
-        return new Circle(this.ID, this.center.x, this.center.y, this.radius);
+        return new Circle(this.ID, this.center.getX(), this.center.getY(), this.radius);
     }
 }

@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <script type="text/javascript" src="./dist/paper-core.js"></script>
+    
+</head>
 <body>
-    <script src="./dist/bundle.js"></script>
+    <script type="text/javascript" src="./dist/bundle.js" canvas="myCanvas"></script>
 
     <h1>Kernel Draw</h1>
     
@@ -21,6 +25,8 @@
     <button id="compile">Compile</button>
     <button id="step">Step</button>
     <button id="run">Run</button>
+
+    <canvas id="myCanvas"></canvas>
 
 </body>
 </html>

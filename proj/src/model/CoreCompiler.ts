@@ -15,6 +15,7 @@ export class CoreCompiler {
     **/
     private timeUntilNextInst: number = 0;
     private totalCoreDuration: number = 0;
+    //private waiting: number = 0;
 
     public constructor(instructions: string[]) {
         this.instructions = instructions;
