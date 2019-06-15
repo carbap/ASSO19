@@ -1,4 +1,4 @@
-import { Path, Size } from 'paper';
+//import { Path, Size } from 'paper';
 import { Shape } from './Shape';
 
 export class Square extends Shape {
@@ -24,10 +24,10 @@ export class Square extends Shape {
         this.size *= factor;
     }
 
-    public draw(): Path.Rectangle {
+    //public draw(): Path.Rectangle {
         // retornar paperjs quadrado
-        return new Path();
-    }
+        //return new Path();
+    //}
 
     public copy(): Square {
         return new Square(this.ID, this.center.getX(), this.center.getY(), this.size);

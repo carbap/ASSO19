@@ -1,4 +1,4 @@
-import { Path } from 'paper';
+//import { Path } from 'paper';
 import { Shape, Vector2 } from './Shape';
 
 export class Triangle extends Shape {
@@ -55,7 +55,7 @@ export class Triangle extends Shape {
         this.point3.setY(factor * (this.point3.getY() - this.center.getY()) + this.center.getY());
     }
 
-    public draw(): Path {
+    //public draw(): Path {
         // retornar paperjs triangulo
         /*
         var myPath = new Path();
@@ -66,8 +66,8 @@ export class Triangle extends Shape {
 
         myPath.closed = true;
         */
-        return new Path();
-    }
+       // return new Path();
+    //}
 
     public copy(): Triangle {
         return new Triangle(this.ID, this.point1.getX(), this.point1.getY(),

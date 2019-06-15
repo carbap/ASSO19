@@ -1,4 +1,4 @@
-import { Path } from 'paper';
+//import { Path } from 'paper';
 
 export abstract class Shape {
     protected ID: string;

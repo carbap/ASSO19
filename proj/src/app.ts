@@ -3,6 +3,8 @@ import { UI } from './view/UI';
 import { Controller } from './controller/Controller';
 import { Rectangle, Path, Color, Point, Size } from 'paper';
 
+//paper.install(window); // Make the paper scope global, by injecting it into window
+
 var model: Kernel = new Kernel();
 var controller: Controller;
 
@@ -13,6 +15,17 @@ window.onload = () => {
     var path = new Path.Rectangle(rectangle);
     path.strokeColor = new Color('black');*/
 
+    // Setup directly from canvas id:
+	paper.setup('myCanvas');
+	var path = new Path();
+	path.strokeColor = new Color('black');
+	var start = new Point(100, 100);
+	path.moveTo(start);
+    path.lineTo(start.add(new Point(200, -50 )));
+    paper.view.update();
+    //view.draw();
+    
+    //TODO: ADICIONAR INSTRUCAO DE WAIT/SIGNAL
 
     var core1 = "code from core1"; // TO DO: replace by document.getElementById
     var core2 = "code from core2";

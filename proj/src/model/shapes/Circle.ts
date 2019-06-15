@@ -1,4 +1,4 @@
-import { Path } from 'paper';
+//import { Path } from 'paper';
 import { Shape } from './Shape';
 
 export class Circle extends Shape {

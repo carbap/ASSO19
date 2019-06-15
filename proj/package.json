@@ -14,7 +14,7 @@
   "homepage": "https://github.com/carbap/ASSO19_Kernel_Draw#readme",
   "dependencies": {
     "circular-dependency-plugin": "^5.0.2",
-    "paper": "^0.12.1",
+    "paper": "^0.12.2",
     "webpack": "^4.29.6"
   },
   "devDependencies": {
