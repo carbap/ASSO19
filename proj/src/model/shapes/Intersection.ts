@@ -28,6 +28,10 @@ export class Intersection extends Shape {
         }
     }
 
+    public getIntersectedShapes() : Shape[] {
+        return this.intersectedShapes;
+    }
+
     //public draw(): Path.Rectangle {
         // averiguar como retornar paperjs intersecao de figuras
         // provavelmente vamos ter de ir buscar o path das varias shapes e UNION delas

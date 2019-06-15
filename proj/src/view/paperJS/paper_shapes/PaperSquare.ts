@@ -1,13 +1,13 @@
 import { PaperShape } from './PaperShape';
 import { Square } from '../../../model/shapes/Square';
-import { PathItem, Path, Point, Size } from 'paper';
+import { Path, Point, Size } from 'paper';
 
 export class PaperSquare extends PaperShape {
     
     constructor(square : Square) {
         super();
-        var point = new Point(square.getCenter().getX(), square.getCenter().getY());
+        var topLeftCorner = new Point(square.getCenter().getX(), square.getCenter().getY());
         var size = new Size(square.getSize(), square.getSize());
-        this.shape = new Path.Rectangle(point, size);
+        this.shape = new Path.Rectangle(topLeftCorner, size);
     }
 }

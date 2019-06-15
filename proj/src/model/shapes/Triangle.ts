@@ -55,6 +55,18 @@ export class Triangle extends Shape {
         this.point3.setY(factor * (this.point3.getY() - this.center.getY()) + this.center.getY());
     }
 
+    public getPoint1() : Vector2 {
+        return this.point1;        
+    }
+
+    public getPoint2() : Vector2 {
+        return this.point2;        
+    }
+
+    public getPoint3() : Vector2 {
+        return this.point3;        
+    }
+
     //public draw(): Path {
         // retornar paperjs triangulo
         /*
