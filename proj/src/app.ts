@@ -13,24 +13,6 @@ var controller: Controller;
 window.onload = () => {
     console.log("BOASSSS");
 
-    paper.setup('drawCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
-
-    var rectangle = new Rectangle(new Point(0, 0), new Size(50, 50));
-    var path = new Path.Rectangle(rectangle);
-    path.strokeColor = 'black';
-
-    var myCircle = new Path.Circle(new Point(100, 70), 50);
-    myCircle.strokeColor = 'black';
-    myCircle.selected = true;
-
-    paper.setup('problemCanvas');
-
-	var path = new Path();
-	path.strokeColor = new Color('black');
-	var start = new Point(100, 100);
-	path.moveTo(start);
-    path.lineTo(start.add(new Point(200, -50 )));
-
     //paper.project.clear();  //so faz clear do canvas atual (nest caso myCanvas2)
     
     //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
@@ -49,6 +31,8 @@ window.onload = () => {
     var runButton = <HTMLElement>document.getElementById('run');
     var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, compileButton, nextButton, runButton);
 
+    view.drawGrids();
+   
     var core1Text = document.getElementById('core1_instructions');
     var core2Text = document.getElementById('core2_instructions');
     var core3Text = document.getElementById('core3_instructions');
@@ -65,9 +49,23 @@ window.onload = () => {
         runButton.onclick = controller.run.bind(controller);
 }
 
-/*function instructionSubmission(event: any){
-    event.preventDefault();
-    let instruction = (<HTMLInputElement> document.getElementById('instruction')).value;
-    // app.qualquerCoisaQueQueremosChamarAqui()
-    console.log("EXECUTOUUUUU");
-}*/
+//EXAMPLE PAPER STUFF FOR QUICK ACCESS
+/*
+paper.setup('drawCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
+
+var rectangle = new Rectangle(new Point(0, 0), new Size(50, 50));
+var path = new Path.Rectangle(rectangle);
+path.strokeColor = 'black';
+
+var myCircle = new Path.Circle(new Point(100, 70), 50);
+myCircle.strokeColor = 'black';
+myCircle.selected = true;
+
+paper.setup('problemCanvas');
+
+var path = new Path();
+path.strokeColor = new Color('black');
+var start = new Point(100, 100);
+path.moveTo(start);
+path.lineTo(start.add(new Point(200, -50 )));
+*/

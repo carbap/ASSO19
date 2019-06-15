@@ -1,4 +1,5 @@
 import { Shape } from '../model/shapes/Shape';
+import { Rectangle, Path, Color, Point, Size } from 'paper';
 
 export abstract class UI {
     protected drawingCanvas: any;
@@ -19,6 +20,46 @@ export abstract class UI {
         this.runButton = runButton;        
     }
 
+    public abstract compare(): boolean;
+
+    public abstract draw(): void;
+
+    public drawGrids(){
+
+        var all_canvas: HTMLCanvasElement[] = [this.problemCanvas, this.drawingCanvas];
+
+        for(let canvas of all_canvas){
+            paper.setup(canvas.id);
+    
+            var unit = 20; // size of each square of the grid
+            var num_squares_x = Math.floor(canvas.width/unit);
+            var num_squares_y = Math.floor(canvas.height/unit);
+            var padding_x = (canvas.width - unit*num_squares_x)/2;
+            var padding_y = (canvas.height - unit*num_squares_y)/2
+            
+            var path;
+            var start;
+        
+            for(var i = 0; i < num_squares_x + 1; i++){
+                path = new Path();
+                path.strokeColor = new Color('grey');
+                path.strokeWidth = 1;
+                start = new Point(padding_x + unit*i, padding_y);
+                path.moveTo(start);
+                path.lineTo(start.add(new Point(0, num_squares_y*unit)));
+            }
+        
+            for(var i = 0; i < num_squares_y + 1; i++){
+                path = new Path();
+                path.strokeColor = new Color('grey');
+                path.strokeWidth = 1;
+                start = new Point(padding_x, padding_y + unit*i);
+                path.moveTo(start);
+                path.lineTo(start.add(new Point(num_squares_x*unit, 0)));
+            }
+        }
+    }
+
     /*public getDrawingCanvas(): UI {
         return this.canvas;
     }*/
@@ -32,8 +73,4 @@ export abstract class UI {
     {
         this.problemShapes = shapeArray;
     }
-
-    public abstract compare(): boolean;
-
-    public abstract draw(): void;
 }
