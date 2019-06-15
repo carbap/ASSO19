@@ -97,7 +97,7 @@ export class Kernel {
         return this.buildSucceeded;
     }
 
-    private hasNext(): boolean {
+    public hasNext(): boolean {
         return this.commandIterator < this.commands.length;
     }
 

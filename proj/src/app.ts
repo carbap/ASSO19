@@ -22,11 +22,15 @@ window.onload = () => {
     myCircle.strokeColor = 'black';
     myCircle.selected = true;
 
+    paper.setup('myCanvas2');
+
 	var path = new Path();
 	path.strokeColor = new Color('black');
 	var start = new Point(100, 100);
 	path.moveTo(start);
     path.lineTo(start.add(new Point(200, -50 )));
+
+    //paper.project.clear();  //so faz clear do canvas atual (nest caso myCanvas2)
     
     //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
     //paper.view.draw()

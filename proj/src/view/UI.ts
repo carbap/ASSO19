@@ -22,4 +22,8 @@ export class UI {
     {
 
     }
+
+    public draw() {
+        
+    }
 }

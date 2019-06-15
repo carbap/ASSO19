@@ -51,6 +51,12 @@ export class Controller {
 
     public next() {
         this.model.runNext();
+        
+        //this.view.draw(this.model.getDrawnShapes());
+
+        if(!this.model.hasNext()) {
+            //compare
+        }
     }
 
     public run() {
