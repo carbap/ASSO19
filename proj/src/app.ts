@@ -3,7 +3,8 @@ import { UI } from './view/UI';
 import { Controller } from './controller/Controller';
 import { Rectangle, Path, Color, Point, Size } from 'paper';
 
-//paper.install(window); // Make the paper scope global, by injecting it into window
+//PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
+//paper.install(window); // Make the paper scope global, by injecting it into window (É importante fazer quando a apalicaçao abre)
 
 var model: Kernel = new Kernel();
 var controller: Controller;
@@ -11,20 +12,25 @@ var controller: Controller;
 window.onload = () => {
     console.log("BOASSSS");
 
-    /*var rectangle = new Rectangle(new Point(0, 0), new Size(10, 10));
-    var path = new Path.Rectangle(rectangle);
-    path.strokeColor = new Color('black');*/
+    paper.setup('myCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
 
-    // Setup directly from canvas id:
-	paper.setup('myCanvas');
+    var rectangle = new Rectangle(new Point(0, 0), new Size(50, 50));
+    var path = new Path.Rectangle(rectangle);
+    path.strokeColor = 'black';
+
+    var myCircle = new Path.Circle(new Point(100, 70), 50);
+    myCircle.strokeColor = 'black';
+    myCircle.selected = true;
+
 	var path = new Path();
 	path.strokeColor = new Color('black');
 	var start = new Point(100, 100);
 	path.moveTo(start);
     path.lineTo(start.add(new Point(200, -50 )));
-    paper.view.update();
-    //view.draw();
     
+    //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
+    //paper.view.draw()
+
     //TODO: ADICIONAR INSTRUCAO DE WAIT/SIGNAL
 
     var core1 = "code from core1"; // TO DO: replace by document.getElementById
