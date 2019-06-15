@@ -1,5 +1,6 @@
 import { Kernel } from './model/Kernel';
 import { UI } from './view/UI';
+import * as UIs from './view';
 import { Controller } from './controller/Controller';
 import { Rectangle, Path, Color, Point, Size } from 'paper';
 
@@ -12,7 +13,7 @@ var controller: Controller;
 window.onload = () => {
     console.log("BOASSSS");
 
-    paper.setup('myCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
+    paper.setup('drawCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
 
     var rectangle = new Rectangle(new Point(0, 0), new Size(50, 50));
     var path = new Path.Rectangle(rectangle);
@@ -22,7 +23,7 @@ window.onload = () => {
     myCircle.strokeColor = 'black';
     myCircle.selected = true;
 
-    paper.setup('myCanvas2');
+    paper.setup('problemCanvas');
 
 	var path = new Path();
 	path.strokeColor = new Color('black');
@@ -41,11 +42,12 @@ window.onload = () => {
     var core2 = "code from core2";
     var core3 = "code from core3";
 
-    var canvas = null;
-    var compileButton = document.getElementById('compile');
-    var nextButton = document.getElementById('next');
-    var runButton = document.getElementById('run');
-    var view: UI = new UI(canvas, compileButton, nextButton, runButton);
+    var drawCanvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
+    var problemCanvas = <HTMLCanvasElement>document.getElementById('problemCanvas');
+    var compileButton = <HTMLElement>document.getElementById('compile');
+    var nextButton = <HTMLElement>document.getElementById('next');
+    var runButton = <HTMLElement>document.getElementById('run');
+    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, compileButton, nextButton, runButton);
 
     var core1Text = document.getElementById('core1_instructions');
     var core2Text = document.getElementById('core2_instructions');

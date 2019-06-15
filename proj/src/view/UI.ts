@@ -1,29 +1,39 @@
 import { Shape } from '../model/shapes/Shape';
 
-export class UI {
-    private canvas: any;
-    private compileButton: HTMLElement | null;
-    private stepButton: HTMLElement | null;
-    private runButton: HTMLElement | null;
-    //private concreteUI : UI;
+export abstract class UI {
+    protected drawingCanvas: any;
+    protected problemCanvas: any;
+    private compileButton: HTMLElement;
+    private stepButton: HTMLElement;
+    private runButton: HTMLElement;
+    
+    protected drawingShapes: Array<Shape> = [];
+    protected problemShapes : Array<Shape> = [];
 
-    constructor(canvas: any, compileButton: HTMLElement | null, stepButton: HTMLElement | null, runButton: HTMLElement | null) {
-        this.canvas = canvas;
+    constructor(drawingCanvas: any, problemCanvas: any, 
+                compileButton: HTMLElement, stepButton: HTMLElement, runButton: HTMLElement) {
+        this.drawingCanvas = drawingCanvas;
+        this.problemCanvas = problemCanvas;
         this.compileButton = compileButton;
         this.stepButton = stepButton;
         this.runButton = runButton;        
     }
 
-    public getCanvas(): UI {
+    /*public getDrawingCanvas(): UI {
         return this.canvas;
-    }
+    }*/
 
-    public setShapes(shapeArray : Shape[]) : void
+    public setDrawingShapes(shapeArray : Shape[]) : void
     {
-
+        this.drawingShapes = shapeArray;
     }
 
-    public draw() {
-        
+    public setProblemShapes(shapeArray : Shape[]) : void
+    {
+        this.problemShapes = shapeArray;
     }
+
+    public abstract compare(): boolean;
+
+    public abstract draw(): void;
 }
