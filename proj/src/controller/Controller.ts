@@ -64,6 +64,9 @@ export class Controller {
 
     public run() {
         this.model.runAll();
+
+        this.view.draw(this.model.getDrawnShapes());
+
         console.log("Finished running");
         //compare
     }
