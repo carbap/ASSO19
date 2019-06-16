@@ -11,11 +11,10 @@ export class CoreCompiler {
      *
      * This is helpful to know which of the kernel 3 cores will be executing the next instruction,
      * because the one with the least timeUntilNextInst will be the one executing the next instruction
-     * And whenever a core executes and instruction, we need to reduce the instruction duration on all cores (to simulate time passing by)
+     * And whenever a core executes an instruction, we need to reduce the instruction duration on all cores (to simulate time passing by)
     **/
     private timeUntilNextInst: number = 0;
     private totalCoreDuration: number = 0;
-    //private waiting: number = 0;
 
     public constructor(instructions: string[]) {
         this.instructions = instructions;

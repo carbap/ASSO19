@@ -175,18 +175,18 @@ class WaitExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 1) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to translate shape. Should be: <coreID (1, 2 or 3)>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments for wait instruction. Should be: <coreID (1, 2 or 3)>");
             return false;
         }
 
         let coreID: number = Number(args[0]);
 
-        if(isNaN(coreID) || (coreID < 1 && coreID > 3)) {
-            (<any> this.rootExpression).addError("<coreID> must a number between 1 and 3");
+        if(isNaN(coreID) || coreID < 1 || coreID > 3) {
+            (<any> this.rootExpression).addError("<coreID> in wait isntruction must a number between 1 and 3");
             return false;
         }
 
-        let command = new Commands.WaitCommand(this.rootExpression.getKernel());
+        let command = new Commands.WaitCommand(this.rootExpression.getKernel(), coreID);
         (<any> this.rootExpression).setCommand(command);
 
         return true;
@@ -200,8 +200,8 @@ class SignalExpression extends Expression {
         // takes no arguments
 
         let args: string[] = context.split(' ');
-
-        if(args.length > 1 || args[0] == '') {
+        console.log("signal args: ", args);
+        if(args.length > 1 || (args.length == 1 && args[0] != 'signal')) {
             (<any> this.rootExpression).addError("Signal instruction takes no arguments");
             return false;
         }
