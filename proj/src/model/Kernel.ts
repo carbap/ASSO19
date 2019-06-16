@@ -43,6 +43,7 @@ export class Kernel {
     }
 
     private clearBuild() {
+        this.resetShapes();
         this.coreCompilers = [new CoreCompiler(this.core1), new CoreCompiler(this.core2), new CoreCompiler(this.core3)];
         this.waitings = [NOT_WAITING, NOT_WAITING, NOT_WAITING];
         this.errors = [];
@@ -224,6 +225,6 @@ export class Kernel {
     }
 
     public getDrawnShapes(): Shape[] {
-        return this.runtimeShapes;
+        return this.drawnShapes;
     }
 }
