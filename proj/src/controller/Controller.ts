@@ -54,7 +54,7 @@ export class Controller {
         
         this.model.runNext();
         
-        this.view.draw(this.model.getDrawnShapes());
+        this.view.draw(this.model.getDrawnShapes(), true);
 
         if(!this.model.hasNext()) {
             console.log("Finished running");
@@ -64,7 +64,7 @@ export class Controller {
 
     public run() {
         this.model.runAll();
-        this.view.draw(this.model.getDrawnShapes());
+        this.view.draw(this.model.getDrawnShapes(), true);
         console.log("Finished running");
 
         if(!this.model.hasNext()) {
