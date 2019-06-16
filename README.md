@@ -40,7 +40,7 @@ The Controller has the role of a Mediator, so the communication between Model an
 (group shapes together; that group is still a shape and has draw method; only the draw logic would be outsourced - props to [Paper.js](http://paperjs.org/))
 
 #### Null Object
-(user for signal and wait commands because they dont act on a shape. However, Command base class must always receive a Shape)
+(Null Shape used for signal and wait commands because they dont act on a shape. However, Command base class must always receive a Shape)
 
 ## Requirements:
 - User types in commands in many "cores"
