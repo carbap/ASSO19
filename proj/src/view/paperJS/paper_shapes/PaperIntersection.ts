@@ -6,6 +6,8 @@ import { Path } from 'paper';
 
 export class PaperIntersection extends PaperShape {
     
+    private firstShape : boolean = true;
+
     constructor(intersection : Shapes.Intersection) {
         super();
         var shapes : Shape[] = intersection.getIntersectedShapes()
@@ -23,16 +25,18 @@ export class PaperIntersection extends PaperShape {
             }
 
             if(!(temp instanceof PaperShapes.PaperEmpty)) {
-                console.log("temp is valid");
-                if(this.shape == null)
+                if(this.firstShape) {
                     this.shape = temp.getShape();
-                else
-                    this.shape = <Path>(this.shape.intersect(temp.getShape()));
-            }
-            
+                    this.firstShape = false;
+                }      
+                else {
+                    var int = this.shape.intersect(temp.getShape());
+                    this.shape = <Path>int;
+                }
+                    
+            }         
         }
 
-        this.shape.closed = true;
         this.shape.fillColor = 'blue';
         console.log("Instancing PaperIntersection");
     }

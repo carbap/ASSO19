@@ -4,9 +4,14 @@ translate sq 50 -10
 draw sq
 create circle cir 50 50 20
 draw cir
-create triangle tri 10 10 10 20 20 20
-draw tri
 translate cir 50 -10
 translate sq 20 0
 create intersection int sq cir
 draw int
+
+create triangle tri 10 10 10 20 20 20
+draw tri
+create triangle tri2 13 13 13 23 23 23
+draw tri2
+create intersection int2 tri tri2
+draw int2
