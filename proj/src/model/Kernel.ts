@@ -2,6 +2,7 @@ import { Command } from './commands/Command';
 import { Shape } from './shapes/Shape';
 import { Expression } from './interpreter/Expression';
 import { CoreCompiler } from './CoreCompiler';
+import { Problem } from './Problem';
 
 export class Kernel {
     private core1: string[];
@@ -19,6 +20,9 @@ export class Kernel {
     private runtimeShapes: Array<Shape> = []; // shapes CREATED by the user and their current state (might have suffered translates, rotations, etc...)
     private drawnShapes: Array<Shape> = []; // shapes who have been in a DRAW instruction (the shape state is the one at the time of the DRAW instruction, NOT the updated one). Drawn shapes têm de ser cópias, porque se forem referencias, como so desenhamos no final, todas vao ter o estado final
     
+    private problems: Array<Problem> = [];
+    private currentProblem: number = 0;
+
     constructor(core1: string[] = [], core2: string[] = [], core3: string[] = []) {
         this.core1 = core1;
         this.core2 = core2;
@@ -155,6 +159,14 @@ export class Kernel {
         this.core1 = core1;
         this.core2 = core2;
         this.core3 = core3;
+    }
+
+    public getCurrentProblem(): Problem{
+        return this.problems[this.currentProblem];
+    }
+
+    public setProblems(problems: Array<Problem>){
+        this.problems = problems;
     }
 
     public getRuntimeShapes(): Shape[] {

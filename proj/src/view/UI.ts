@@ -1,23 +1,18 @@
 import { Shape } from '../model/shapes/Shape';
+import { Problem } from '../model/Problem';
 import { Rectangle, Path, Color, Point, Size } from 'paper';
 
 export abstract class UI {
     protected drawingCanvas: any;
     protected problemCanvas: any;
-    private compileButton: HTMLElement;
-    private stepButton: HTMLElement;
-    private runButton: HTMLElement;
     
     protected drawingShapes: Array<Shape> = [];
     protected problemShapes : Array<Shape> = [];
 
-    constructor(drawingCanvas: any, problemCanvas: any, 
-                compileButton: HTMLElement, stepButton: HTMLElement, runButton: HTMLElement) {
+    constructor(drawingCanvas: any, problemCanvas: any) {
         this.drawingCanvas = drawingCanvas;
-        this.problemCanvas = problemCanvas;
-        this.compileButton = compileButton;
-        this.stepButton = stepButton;
-        this.runButton = runButton;        
+        this.problemCanvas = problemCanvas;  
+        this.drawGrids();
     }
 
     public abstract compare(): boolean;
@@ -27,11 +22,11 @@ export abstract class UI {
     public drawGrids(){
 
         var all_canvas: HTMLCanvasElement[] = [this.problemCanvas, this.drawingCanvas];
+        var unit = 20; // size of each square of the grid is fixed
 
         for(let canvas of all_canvas){
             paper.setup(canvas.id);
     
-            var unit = 20; // size of each square of the grid
             var num_squares_x = Math.floor(canvas.width/unit);
             var num_squares_y = Math.floor(canvas.height/unit);
             var padding_x = (canvas.width - unit*num_squares_x)/2;
@@ -58,6 +53,11 @@ export abstract class UI {
                 path.lineTo(start.add(new Point(num_squares_x*unit, 0)));
             }
         }
+    }
+
+    public drawProblem(problem: Problem){
+        //TO DO
+        console.log("UI: draw problem");
     }
 
     /*public getDrawingCanvas(): UI {

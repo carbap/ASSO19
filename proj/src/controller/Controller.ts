@@ -55,12 +55,20 @@ export class Controller {
         //this.view.draw(this.model.getDrawnShapes());
 
         if(!this.model.hasNext()) {
-            //compare
+            this.view.compare();
         }
     }
 
     public run() {
         this.model.runAll();
+
+        if(!this.model.hasNext()) {
+            this.view.compare();
+        }
+    }
+
+    public drawProblem(){
+        this.view.drawProblem(this.model.getCurrentProblem());
     }
 }
 

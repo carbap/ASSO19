@@ -2,10 +2,14 @@ import { Kernel } from './model/Kernel';
 import { UI } from './view/UI';
 import * as UIs from './view';
 import { Controller } from './controller/Controller';
+import { Problem } from './model/Problem';
 import { Rectangle, Path, Color, Point, Size } from 'paper';
+import * as Shapes from './model/shapes';
 
 //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
 //paper.install(window); // Make the paper scope global, by injecting it into window (É importante fazer quando a apalicaçao abre)
+
+var problems: Array<Problem> = defineProblems();
 
 var model: Kernel = new Kernel();
 var controller: Controller;
@@ -20,25 +24,19 @@ window.onload = () => {
 
     //TODO: ADICIONAR INSTRUCAO DE WAIT/SIGNAL
 
-    var core1 = "code from core1"; // TO DO: replace by document.getElementById
-    var core2 = "code from core2";
-    var core3 = "code from core3";
-
     var drawCanvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
     var problemCanvas = <HTMLCanvasElement>document.getElementById('problemCanvas');
+
+    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas);
+    controller = new Controller(model, view);
+
+    model.setProblems(problems); //TO DO: passar os problems pelo construtor do Kernel
+    controller.drawProblem();
+    
     var compileButton = <HTMLElement>document.getElementById('compile');
     var nextButton = <HTMLElement>document.getElementById('next');
     var runButton = <HTMLElement>document.getElementById('run');
-    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, compileButton, nextButton, runButton);
 
-    view.drawGrids();
-   
-    var core1Text = document.getElementById('core1_instructions');
-    var core2Text = document.getElementById('core2_instructions');
-    var core3Text = document.getElementById('core3_instructions');
-
-    controller = new Controller(model, view);
-    
     if(compileButton) 
         compileButton.onclick = controller.compile.bind(controller);
 
@@ -47,6 +45,17 @@ window.onload = () => {
 
     if(runButton)
         runButton.onclick = controller.run.bind(controller);
+}
+
+function defineProblems(): Array<Problem> {
+    let square1 = new Shapes.Square("square1", 200, 200, 40);
+    let circle1 = new Shapes.Circle("circle1", 220, 220, 20);
+    var prob1 = new Problem(square1, circle1);
+
+    let circle2 = new Shapes.Circle("circle1", 220, 220, 40);
+    var prob2 = new Problem(square1, circle2);
+
+    return [prob1, prob2];
 }
 
 //EXAMPLE PAPER STUFF FOR QUICK ACCESS

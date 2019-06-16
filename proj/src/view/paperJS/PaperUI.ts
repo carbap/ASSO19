@@ -5,8 +5,8 @@ export class PaperUI extends UI {
         
     private scope: PaperScope;
 
-    constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement, compileButton: HTMLElement, stepButton: HTMLElement, runButton: HTMLElement) {
-        super(drawingCanvas, problemCanvas, compileButton, stepButton, runButton);
+    constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement) {
+        super(drawingCanvas, problemCanvas);
         this.scope = new PaperScope();
         
     }
