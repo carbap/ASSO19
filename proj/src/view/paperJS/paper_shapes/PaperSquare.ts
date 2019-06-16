@@ -9,5 +9,7 @@ export class PaperSquare extends PaperShape {
         var topLeftCorner = new Point(square.getCenter().getX(), square.getCenter().getY());
         var size = new Size(square.getSize(), square.getSize());
         this.shape = new Path.Rectangle(topLeftCorner, size);
+        this.shape.fillColor = 'black';
+        console.log("Instancing PaperSquare");
     }
 }

@@ -22,7 +22,7 @@ export abstract class UI {
 
     public abstract compare(): boolean;
 
-    public abstract draw(): void;
+    public abstract draw(shapeList : Shape[]): void;
 
     public drawGrids(){
 

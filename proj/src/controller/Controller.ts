@@ -50,17 +50,22 @@ export class Controller {
     }
 
     public next() {
+        console.log("Running next instruction");
+        
         this.model.runNext();
         
-        //this.view.draw(this.model.getDrawnShapes());
+        this.view.draw(this.model.getDrawnShapes());
 
         if(!this.model.hasNext()) {
+            console.log("Finished running");
             //compare
         }
     }
 
     public run() {
         this.model.runAll();
+        console.log("Finished running");
+        //compare
     }
 }
 

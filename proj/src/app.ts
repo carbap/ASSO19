@@ -27,7 +27,7 @@ window.onload = () => {
     var drawCanvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
     var problemCanvas = <HTMLCanvasElement>document.getElementById('problemCanvas');
     var compileButton = <HTMLElement>document.getElementById('compile');
-    var nextButton = <HTMLElement>document.getElementById('next');
+    var nextButton = <HTMLElement>document.getElementById('step');
     var runButton = <HTMLElement>document.getElementById('run');
     var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, compileButton, nextButton, runButton);
 
