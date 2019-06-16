@@ -33,7 +33,7 @@ export class Kernel {
     private drawnShapes: Array<Shape> = []; // shapes who have been in a DRAW instruction (the shape state is the one at the time of the DRAW instruction, NOT the updated one). Drawn shapes têm de ser cópias, porque se forem referencias, como so desenhamos no final, todas vao ter o estado final
     
     private problems: Array<Problem> = [];
-    private currentProblem: number = 0;
+    private problemIterator: number = 0; //use Iterator
 
     constructor(core1: string[] = [], core2: string[] = [], core3: string[] = []) {
         this.core1 = core1;
@@ -213,11 +213,30 @@ export class Kernel {
     }
 
     public getCurrentProblem(): Problem{
-        return this.problems[this.currentProblem];
+        return this.problems[this.problemIterator];
+    }
+
+    public getProblemIterator(): number{
+        return this.problemIterator;
+    }
+
+    public getProblems(): Array<Problem>{
+        return this.problems;
     }
 
     public setProblems(problems: Array<Problem>){
         this.problems = problems;
+    }
+
+    public hasNextProblem(): boolean {
+        return this.problemIterator < (this.problems.length - 1);
+    }
+
+    public nextProblem(): void {
+        if(!this.hasNextProblem())
+            return;
+
+        this.problemIterator++;
     }
 
     public getRuntimeShapes(): Shape[] {

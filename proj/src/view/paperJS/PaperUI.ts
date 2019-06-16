@@ -9,15 +9,17 @@ export class PaperUI extends UI {
         
     private drawScope: PaperScope;
     private problemScope: PaperScope;
+    private currentProblem: HTMLLabelElement;
 
-    constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement) {
+    constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement, currentProblem: HTMLLabelElement) {
         super(drawingCanvas, problemCanvas);
         this.drawScope = new PaperScope();
         this.problemScope = new PaperScope();
         this.drawScope.setup(this.drawingCanvas);
         this.problemScope.setup(this.problemCanvas);
+        this.currentProblem = currentProblem;
     }
-
+ 
     public compare(): boolean {
         var drawBytes = this.drawingCanvas.getContext('2d').getImageData(0, 0, this.drawingCanvas.width, this.drawingCanvas.height).data;
         var problemBytes = this.problemCanvas.getContext('2d').getImageData(0, 0, this.problemCanvas.width, this.problemCanvas.height).data;
@@ -95,6 +97,10 @@ export class PaperUI extends UI {
             path.moveTo(start);
             path.lineTo(start.add(new Point(num_squares_x*unit, 0)));
         }
+    }
+
+    public updateProblem(problemIterator: number, numProblems: number){
+        this.currentProblem.innerText = "Problem " + (problemIterator+1) + "/" + numProblems;
     }
 
     public similarColor(color1: number, color2: number){

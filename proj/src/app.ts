@@ -9,8 +9,6 @@ import * as Shapes from './model/shapes';
 //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
 //paper.install(window); // Make the paper scope global, by injecting it into window (É importante fazer quando a apalicaçao abre)
 
-var problems: Array<Problem> = defineProblems();
-
 var model: Kernel = new Kernel();
 var controller: Controller;
 
@@ -26,12 +24,15 @@ window.onload = () => {
 
     var drawCanvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
     var problemCanvas = <HTMLCanvasElement>document.getElementById('problemCanvas');
+    var currentProblem = <HTMLLabelElement>document.getElementById('currentProblem');
 
-    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas);
+    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, currentProblem);
     controller = new Controller(model, view);
 
+    var problems: Array<Problem> = defineProblems();
     model.setProblems(problems); //TO DO: passar os problems pelo construtor do Kernel
-    controller.drawProblem();
+    view.updateProblem(model.getProblemIterator(), model.getProblems().length);
+    controller.drawProblem(); 
     
     var compileButton = <HTMLElement>document.getElementById('compile');
     var nextButton = <HTMLElement>document.getElementById('step');

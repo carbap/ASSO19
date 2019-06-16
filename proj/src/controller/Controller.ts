@@ -58,7 +58,7 @@ export class Controller {
 
         if(!this.model.hasNext()) {
             console.log("Finished running");
-            console.log(this.view.compare());
+            this.compare();
         }
     }
 
@@ -68,7 +68,14 @@ export class Controller {
         console.log("Finished running");
 
         if(!this.model.hasNext()) {
-            console.log(this.view.compare());
+            this.compare();
+        }
+    }
+
+    public compare(){
+        if(this.view.compare()){
+            this.model.nextProblem();
+            this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems().length);
         }
     }
 

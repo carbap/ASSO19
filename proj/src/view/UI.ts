@@ -5,9 +5,6 @@ import { Rectangle, Path, Color, Point, Size } from 'paper';
 export abstract class UI {
     protected drawingCanvas: any;
     protected problemCanvas: any;
-    
-    protected drawingShapes: Array<Shape> = [];
-    protected problemShapes : Array<Shape> = [];
 
     constructor(drawingCanvas: any, problemCanvas: any) {
         this.drawingCanvas = drawingCanvas;
@@ -26,17 +23,5 @@ export abstract class UI {
         this.draw(problem.getShapes(), false);
     }
 
-    /*public getDrawingCanvas(): UI {
-        return this.canvas;
-    }*/
-
-    public setDrawingShapes(shapeArray : Shape[]) : void
-    {
-        this.drawingShapes = shapeArray;
-    }
-
-    public setProblemShapes(shapeArray : Shape[]) : void
-    {
-        this.problemShapes = shapeArray;
-    }
+    public abstract updateProblem(problemIterator: number, numProblems: number): void;
 }
