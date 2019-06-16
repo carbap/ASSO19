@@ -48,11 +48,11 @@ window.onload = () => {
 }
 
 function defineProblems(): Array<Problem> {
-    let square1 = new Shapes.Square("square1", 200, 200, 40);
-    let circle1 = new Shapes.Circle("circle1", 220, 220, 20);
+    let square1 = new Shapes.Square("square1", 200, 200, 50);
+    let circle1 = new Shapes.Circle("circle1", 225, 225, 25);
     var prob1 = new Problem(square1, circle1);
 
-    let circle2 = new Shapes.Circle("circle1", 220, 220, 40);
+    let circle2 = new Shapes.Circle("circle1", 225, 225, 50);
     var prob2 = new Problem(square1, circle2);
 
     return [prob1, prob2];

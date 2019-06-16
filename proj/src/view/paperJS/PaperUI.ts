@@ -1,5 +1,5 @@
 import { UI } from '../UI';
-import { PaperScope, } from 'paper';
+import { PaperScope, Raster, } from 'paper';
 import * as Shapes from '../../model/shapes';
 import * as PaperShapes from './paper_shapes';
 import { Shape } from '../../model/shapes/Shape';
@@ -19,7 +19,24 @@ export class PaperUI extends UI {
     }
 
     public compare(): boolean {
-        throw new Error("Method not implemented.");
+        var drawRaster: Raster = new Raster(this.drawingCanvas);
+        drawRaster.visible = false;
+        var problemRaster: Raster = new Raster(this.problemCanvas);
+        problemRaster.visible = false;
+
+        if(drawRaster.width != problemRaster.width || drawRaster.height != problemRaster.height){
+            return false;
+        }
+
+        for(var x = 0; x < drawRaster.height; x++){
+            for(var y = 0; y < drawRaster.width; y++){
+                if(!drawRaster.getPixel(x, y).equals(problemRaster.getPixel(x,y))){
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public draw(shapeList : Shape[], isDrawCanvas: boolean): void {

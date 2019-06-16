@@ -15,3 +15,8 @@ create triangle tri2 13 13 13 23 23 23
 draw tri2
 create intersection int2 tri tri2
 draw int2
+
+create square s 200 200 50
+draw s
+create circle c 225 225 25
+draw c

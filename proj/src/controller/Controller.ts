@@ -58,7 +58,7 @@ export class Controller {
 
         if(!this.model.hasNext()) {
             console.log("Finished running");
-            this.view.compare();
+            console.log(this.view.compare());
         }
     }
 
@@ -68,7 +68,7 @@ export class Controller {
         console.log("Finished running");
 
         if(!this.model.hasNext()) {
-            this.view.compare();
+            console.log(this.view.compare());
         }
     }
 
