@@ -1,0 +1,12 @@
+create square sq 20 20 60
+draw sq
+translate sq 50 -10
+draw sq
+create circle cir 50 50 20
+draw cir
+create triangle tri 10 10 10 20 20 20
+draw tri
+translate cir 50 -10
+translate sq 20 0
+create intersection int sq cir
+draw int

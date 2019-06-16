@@ -23,6 +23,7 @@ export class PaperIntersection extends PaperShape {
             }
 
             if(!(temp instanceof PaperShapes.PaperEmpty)) {
+                console.log("temp is valid");
                 if(this.shape == null)
                     this.shape = temp.getShape();
                 else
@@ -31,6 +32,7 @@ export class PaperIntersection extends PaperShape {
             
         }
 
+        this.shape.closed = true;
         this.shape.fillColor = 'blue';
         console.log("Instancing PaperIntersection");
     }
