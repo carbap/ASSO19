@@ -1,4 +1,3 @@
-//import { Path, Size } from 'paper';
 import { Shape } from './Shape';
 
 export class Intersection extends Shape {

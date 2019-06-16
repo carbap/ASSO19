@@ -17,7 +17,7 @@ export abstract class UI {
 
     public abstract compare(): boolean;
 
-    public abstract draw(): void;
+    public abstract draw(shapeList : Shape[]): void;
 
     public drawGrids(){
 
@@ -37,7 +37,7 @@ export abstract class UI {
         
             for(var i = 0; i < num_squares_x + 1; i++){
                 path = new Path();
-                path.strokeColor = new Color('grey');
+                path.strokeColor = 'grey';
                 path.strokeWidth = 1;
                 start = new Point(padding_x + unit*i, padding_y);
                 path.moveTo(start);
@@ -46,7 +46,7 @@ export abstract class UI {
         
             for(var i = 0; i < num_squares_y + 1; i++){
                 path = new Path();
-                path.strokeColor = new Color('grey');
+                path.strokeColor = 'grey';
                 path.strokeWidth = 1;
                 start = new Point(padding_x, padding_y + unit*i);
                 path.moveTo(start);

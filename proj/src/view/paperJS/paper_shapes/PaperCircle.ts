@@ -9,5 +9,7 @@ export class PaperCircle extends PaperShape {
         var center = new Point(circle.getCenter().getX(), circle.getCenter().getY());
         var radius = circle.getRadius();
         this.shape = new Path.Circle(center, radius);
+        this.shape.fillColor = 'green';
+        console.log("Instancing PaperCircle");
     }
 }

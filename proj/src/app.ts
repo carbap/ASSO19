@@ -34,7 +34,7 @@ window.onload = () => {
     controller.drawProblem();
     
     var compileButton = <HTMLElement>document.getElementById('compile');
-    var nextButton = <HTMLElement>document.getElementById('next');
+    var nextButton = <HTMLElement>document.getElementById('step');
     var runButton = <HTMLElement>document.getElementById('run');
 
     if(compileButton) 

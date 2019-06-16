@@ -1,5 +1,3 @@
-//import { Path } from 'paper';
-
 export abstract class Shape {
     protected ID: string;
     protected center: Vector2;

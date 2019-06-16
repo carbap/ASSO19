@@ -1,4 +1,3 @@
-//import { Path } from 'paper';
 import { Shape, Vector2 } from './Shape';
 
 export class Triangle extends Shape {

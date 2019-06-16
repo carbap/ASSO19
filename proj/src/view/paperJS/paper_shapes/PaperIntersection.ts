@@ -2,7 +2,7 @@ import { PaperShape } from './PaperShape';
 import * as Shapes from '../../../model/shapes';
 import * as PaperShapes from './';
 import { Shape } from '../../../model/shapes/Shape';
-import { Path, Point } from 'paper';
+import { Path } from 'paper';
 
 export class PaperIntersection extends PaperShape {
     
@@ -11,7 +11,7 @@ export class PaperIntersection extends PaperShape {
         var shapes : Shape[] = intersection.getIntersectedShapes()
         
         for(var i = 0; i < shapes.length; i++) {
-            var temp
+            var temp : PaperShape = new PaperShapes.PaperEmpty();
             if(shapes[i] instanceof Shapes.Circle) {
                 temp = new PaperShapes.PaperCircle(<Shapes.Circle>shapes[i]);
             }
@@ -22,10 +22,18 @@ export class PaperIntersection extends PaperShape {
                 temp = new PaperShapes.PaperTriangle(<Shapes.Triangle>shapes[i]);
             }
 
-            if(this.shape == null)
-                    this.shape = temp;
+            if(!(temp instanceof PaperShapes.PaperEmpty)) {
+                console.log("temp is valid");
+                if(this.shape == null)
+                    this.shape = temp.getShape();
                 else
-                    this.shape = this.shape.intersect(temp);
+                    this.shape = <Path>(this.shape.intersect(temp.getShape()));
+            }
+            
         }
+
+        this.shape.closed = true;
+        this.shape.fillColor = 'blue';
+        console.log("Instancing PaperIntersection");
     }
 }

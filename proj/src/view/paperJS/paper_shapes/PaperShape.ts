@@ -1,9 +1,9 @@
-import { PathItem, Shape } from 'paper';
+import { Path } from 'paper';
 
 export class PaperShape {
-    protected shape : PathItem;
+    protected shape : Path = new Path();
 
-    public getShape() : PathItem {
+    public getShape() : Path {
         return this.shape;
     }
 }

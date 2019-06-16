@@ -9,10 +9,12 @@ export class PaperTriangle extends PaperShape {
         var point1 = new Point(triangle.getPoint1().getX(), triangle.getPoint1().getY());
         var point2 = new Point(triangle.getPoint2().getX(), triangle.getPoint2().getY());
         var point3 = new Point(triangle.getPoint3().getX(), triangle.getPoint3().getY());
-        this.shape = new Path.Line(point1, point2);
-        var temp : Path = new Path.Line(point2, point3);
-        this.shape = this.shape.unite(temp);
-        var temp2 : Path = new Path.Line(point3, point1);
-        this.shape = this.shape.unite(temp2);
+        this.shape = new Path();
+        this.shape.add(point1);
+        this.shape.add(point2);
+        this.shape.add(point3);
+        this.shape.closed = true;
+        this.shape.fillColor = 'red';
+        console.log("Instancing PaperTriangle");
     }
 }
