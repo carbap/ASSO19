@@ -4,12 +4,24 @@ import { Expression } from './interpreter/Expression';
 import { CoreCompiler } from './CoreCompiler';
 import { Problem } from './Problem';
 
+const NOT_WAITING: number = 0;
+
 export class Kernel {
     private core1: string[];
     private core2: string[];
     private core3: string[];
 
     private coreCompilers: [CoreCompiler, CoreCompiler, CoreCompiler]; // Contains a compiler for each core
+    /**
+     * Each array position represents a core waiting status 
+     * 0 - not waiting. 1, 2 or 3 - core whose signal we are waiting for
+     */
+    private waitings: [number, number, number] = [NOT_WAITING, NOT_WAITING, NOT_WAITING];
+    /**
+     * Indicates to which core the instruction being currently compiled belongs to
+     * This variable is only used during compilation
+     */
+    private currentInstructionCore: number = 1;
 
     private errors: Array<string> = [];
     private programExecutionTime = 0; // Check the core with the biggest duration of all its instructions
@@ -31,7 +43,9 @@ export class Kernel {
     }
 
     private clearBuild() {
+        this.resetShapes();
         this.coreCompilers = [new CoreCompiler(this.core1), new CoreCompiler(this.core2), new CoreCompiler(this.core3)];
+        this.waitings = [NOT_WAITING, NOT_WAITING, NOT_WAITING];
         this.errors = [];
         this.programExecutionTime = 0;
         this.commands = [];
@@ -55,11 +69,23 @@ export class Kernel {
             // Check what compiler will be available sooner
             let nextCompiler: CoreCompiler = this.coreCompilers[0];
             let timeUntilNextCompiler: number = 9999;
-            for(var compiler of this.coreCompilers) {
-                if(compiler.getTimeUntilNextInst() < timeUntilNextCompiler && compiler.hasInstructionsToCompile()) {
+            for(let compilerIdx in this.coreCompilers) {
+                let compiler = this.coreCompilers[compilerIdx];
+                let coreWaiting: boolean = this.isCoreWaiting(Number(compilerIdx) + 1);
+
+                if(compiler.getTimeUntilNextInst() < timeUntilNextCompiler && 
+                    compiler.hasInstructionsToCompile() &&
+                    !coreWaiting) {
                     nextCompiler = compiler;
+                    this.currentInstructionCore = Number(compilerIdx) + 1;
                     timeUntilNextCompiler = compiler.getTimeUntilNextInst();
                 }
+            }
+
+            // Check if no compiler was selected to compile next instruction, despite existing instructions to compile (this can happen due to deadlock unsignalled waits)
+            if(timeUntilNextCompiler === 9999) {
+                this.errors.push("Wait Dead Lock preventing program from running");
+                break;
             }
 
             // Simulate time passing, by deducting nextCompiler current instruction duration on all compilers, before compiling the next instruction on nextCompiler
@@ -93,7 +119,7 @@ export class Kernel {
             this.programExecutionTime = Math.max(...coreDurations);
             console.log("EXECUTION TIME ", this.programExecutionTime);
         } else {
-            //console.log("ERROS COMPILACAO: ", this.errors);
+            console.log("ERROS COMPILACAO: ", this.errors);
         }
 
         this.resetShapes();
@@ -101,6 +127,31 @@ export class Kernel {
         return this.buildSucceeded;
     }
 
+    public wait(waitingCoreID: number, coreSignalID: number) {
+        if(waitingCoreID < 1 || waitingCoreID > this.coreCompilers.length ||
+            coreSignalID < 1 || coreSignalID > this.coreCompilers.length)
+            return;
+
+        this.waitings[waitingCoreID - 1] = coreSignalID;
+    }
+
+    public signal(signalingCoreID: number) {
+        for(let coreIdx in this.waitings) {
+            if(this.waitings[coreIdx] === signalingCoreID)
+                this.waitings[coreIdx] = NOT_WAITING;
+        }
+    }
+
+    private isCoreWaiting(coreID: number): boolean {
+        if(coreID < 1 || coreID > this.coreCompilers.length)
+            return false;
+
+        return Boolean(this.waitings[coreID - 1]);
+    }
+
+    public getCurrentInstructionCore(): number {
+        return this.currentInstructionCore;
+    }
     public hasNext(): boolean {
         return this.commandIterator < this.commands.length;
     }
@@ -174,6 +225,6 @@ export class Kernel {
     }
 
     public getDrawnShapes(): Shape[] {
-        return this.runtimeShapes;
+        return this.drawnShapes;
     }
 }
