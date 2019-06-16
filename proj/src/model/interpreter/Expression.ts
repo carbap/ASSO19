@@ -49,6 +49,12 @@ export class Expression {
             case 'draw':
                 expression = new DrawExpression(this);
                 break;
+            case 'wait':
+                expression = new WaitExpression(this);
+                break;
+            case 'signal':
+                expression = new SignalExpression(this);
+                break;
             default:
                 this.addError("There's no instruction called " + instruction);
                 return false;
@@ -59,6 +65,15 @@ export class Expression {
     }
 }
 
+/**
+ * MAIN EXPRESSIONS
+ * - draw
+ * - scale
+ * - translate
+ * - wait
+ * - signal
+ * - create shape
+ */
 class DrawExpression extends Expression {
     constructor(private rootExpression: Expression){ super(); }
 
@@ -151,6 +166,53 @@ class TranslateExpression extends Expression {
     }
 }
 
+class WaitExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <coreID>
+
+        let args: string[] = context.split(' ');
+
+        if(args.length != 1) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to translate shape. Should be: <coreID (1, 2 or 3)>");
+            return false;
+        }
+
+        let coreID: number = Number(args[0]);
+
+        if(isNaN(coreID) || (coreID < 1 && coreID > 3)) {
+            (<any> this.rootExpression).addError("<coreID> must a number between 1 and 3");
+            return false;
+        }
+
+        let command = new Commands.WaitCommand(this.rootExpression.getKernel());
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class SignalExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // takes no arguments
+
+        let args: string[] = context.split(' ');
+
+        if(args.length > 1 || args[0] == '') {
+            (<any> this.rootExpression).addError("Signal instruction takes no arguments");
+            return false;
+        }
+
+        let command = new Commands.SignalCommand(this.rootExpression.getKernel());
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
 class GeneralCreateExpression extends Expression {
     constructor(private rootExpression: Expression){ super(); }
 
@@ -193,6 +255,13 @@ class GeneralCreateExpression extends Expression {
     }
 }
 
+/**
+ * CREATE SHAPES EXPRESSIONS
+ * - circle
+ * - intersection
+ * - square
+ * - triangle
+ */
 class CreateCircleExpression extends Expression {
     constructor(private rootExpression: Expression){ super(); }
 
