@@ -20,3 +20,8 @@ create square s 200 200 50
 draw s
 create circle c 225 225 25
 draw c
+
+create square s1 0 0 50
+draw s1
+create circle c1 25 25 25
+draw c1

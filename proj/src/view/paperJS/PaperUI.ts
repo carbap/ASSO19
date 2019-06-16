@@ -19,21 +19,16 @@ export class PaperUI extends UI {
     }
 
     public compare(): boolean {
-        var drawRaster: Raster = new Raster(this.drawingCanvas);
-        drawRaster.visible = false;
-        var problemRaster: Raster = new Raster(this.problemCanvas);
-        problemRaster.visible = false;
+        var drawBytes = this.drawingCanvas.getContext('2d').getImageData(0, 0, this.drawingCanvas.width, this.drawingCanvas.height).data;
+        var problemBytes = this.problemCanvas.getContext('2d').getImageData(0, 0, this.problemCanvas.width, this.problemCanvas.height).data;
 
-        if(drawRaster.width != problemRaster.width || drawRaster.height != problemRaster.height){
+        if(this.drawingCanvas.width != this.problemCanvas.width || this.drawingCanvas.height != this.problemCanvas.height || drawBytes.length != problemBytes.length){
             return false;
         }
 
-        for(var x = 0; x < drawRaster.height; x++){
-            for(var y = 0; y < drawRaster.width; y++){
-                if(!drawRaster.getPixel(x, y).equals(problemRaster.getPixel(x,y))){
-                    return false;
-                }
-            }
+        for(var i = 0; i < drawBytes.length; i++){
+            if(!this.similarColor(drawBytes[i], problemBytes[i]))
+                return false;
         }
 
         return true;
@@ -100,5 +95,10 @@ export class PaperUI extends UI {
             path.moveTo(start);
             path.lineTo(start.add(new Point(num_squares_x*unit, 0)));
         }
+    }
+
+    public similarColor(color1: number, color2: number){
+        var diff = Math.abs(color1-color2)
+        return diff <= 2;
     }
 }
