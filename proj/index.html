@@ -39,12 +39,12 @@
                 </ul>
                 <b class="p-1">Notes</b>
                 <ul class="p-1" style="list-style-type:none;">
-                    <li>- The objective of the game is to create a drawing equal to the problem, while respecting the execution time</li>
-                    <li>- All 3 cores execute code in parallel. That being said you should be careful not to write instructions that depende on the same variable, 
+                    <li>- The objective of the game is to create a drawing equal to the problem, while respecting the maximum allowed execution time.</li>
+                    <li>- All 3 cores execute code in parallel. That being said you should be careful when writing instructions that act on the same variable, 
                         that might execute at similar time in different cores. If you want to assure synchronization/sequencialization we advise you to use wait/signal instructions
-                        (but be careful to no create DEAD LOCKS)</li>
+                        (but be careful not create DEAD LOCKS)</li>
                     <li>- Each grid square has a size of 50 units</li>
-                    <li>- The program execution time will be the one of the core with biggest execution</li>
+                    <li>- The program execution time will be the one of the core with the longest execution</li>
                 </ul>
             </div>
         </div>
