@@ -74,6 +74,8 @@ The [Intersection](proj/src/model/shapes/Intersection.ts) and [Union](proj/src/m
 #### Null Object
 The [Null Shape](proj/src/model/shapes/NullShape.ts) class was used for signal and wait commands because they dont act on a shape. However, the Command base class must always receive a Shape.
 
+The [PaperEmpty](proj/src/view/paperJS/paper_shapes/PaperEmpty.ts) class was used because the [PaperFactory](proj/src/view/paperJS/PaperFactory.ts) can never return a 'null' object. That is, it always needs to return a valid [PaperShape](proj/src/view/paperJS/paper_shapes/PaperShape.ts) (the base class).
+
 ## Instructions:
 
 The index.html page itself contains information about all the instructions available to the user, namely the arguments they take and the time associated to them.<br>
