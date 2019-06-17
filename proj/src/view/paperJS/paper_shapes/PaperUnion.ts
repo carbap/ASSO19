@@ -5,14 +5,14 @@ import { Shape } from '../../../model/shapes/Shape';
 import { Path } from 'paper';
 import { PaperFactory } from '../PaperFactory';
 
-export class PaperIntersection extends PaperShape {
+export class PaperUnion extends PaperShape {
     
     private firstShape : boolean = true;
     private paperShapeFactory: PaperFactory = new PaperFactory();
 
-    constructor(intersection : Shapes.Intersection) {
+    constructor(union : Shapes.Union) {
         super();
-        var shapes : Shape[] = intersection.getIntersectedShapes();
+        var shapes : Shape[] = union.getUnitedShapes();
         
         for(var i = 0; i < shapes.length; i++) {
             var temp = this.paperShapeFactory.createPaperShape(shapes[i]);
@@ -23,17 +23,17 @@ export class PaperIntersection extends PaperShape {
                     this.firstShape = false;
                 }      
                 else {
-                    var int = this.shape.intersect(temp.getShape());
+                    var uni = this.shape.unite(temp.getShape());
                     this.shape.remove();
                     temp.getShape().remove();
-                    this.shape = <Path>int;
+                    this.shape = <Path>uni;
                     
                 }
             }         
         }
 
-        this.shape.fillColor = 'blue';
-        this.shape.rotate(intersection.getRotation());
-        console.log("Instancing PaperIntersection");
+        this.shape.fillColor = 'purple';
+        this.shape.rotate(union.getRotation());
+        console.log("Instancing PaperUnion");
     }
 }

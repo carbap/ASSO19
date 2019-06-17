@@ -15,6 +15,7 @@ export class PaperTriangle extends PaperShape {
         this.shape.add(point3);
         this.shape.closed = true;
         this.shape.fillColor = 'red';
+        this.shape.rotate(triangle.getRotation());
         console.log("Instancing PaperTriangle");
     }
 }

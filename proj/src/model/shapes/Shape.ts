@@ -2,7 +2,7 @@ export abstract class Shape {
     protected ID: string;
     protected center: Vector2;
     private readonly centerOG: Vector2;
-    protected angle: number = 0; // para rotaçao????
+    protected angle: number = 0;
 
     public constructor(ID: string, centerX: number, centerY: number) {
         this.ID = ID;
@@ -25,6 +25,15 @@ export abstract class Shape {
 
     public getCenter(): Vector2 {
         return this.center;
+    }
+
+    public getRotation(): number {
+        return this.angle;
+    }
+
+    public rotate(degrees: number) {
+        this.angle += degrees;
+        this.angle %= 360;
     }
 
     abstract scale(factor: number): void;

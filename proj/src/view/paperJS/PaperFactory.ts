@@ -22,6 +22,9 @@ export class PaperFactory {
         else if(shapeItem instanceof Shapes.Intersection) {
             ret = new PaperShapes.PaperIntersection(<Shapes.Intersection>shapeItem);
         }
+        else if(shapeItem instanceof Shapes.Union) {
+            ret = new PaperShapes.PaperUnion(<Shapes.Union>shapeItem);
+        }
 
         return ret;
     }
