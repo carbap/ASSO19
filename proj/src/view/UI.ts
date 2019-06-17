@@ -1,6 +1,5 @@
 import { Shape } from '../model/shapes/Shape';
 import { Problem } from '../model/Problem';
-import { Rectangle, Path, Color, Point, Size } from 'paper';
 
 export abstract class UI {
     protected drawingCanvas: any;
@@ -149,7 +148,6 @@ export abstract class UI {
             this.removeEmpty(processedInstructions);
             processedCoresText.push(processedInstructions);
         }
-        console.log(processedCoresText);
 
         this.compileBtnHandler(... processedCoresText);
     }

@@ -3,7 +3,7 @@ import { PaperScope } from 'paper';
 import { PaperFactory } from './PaperFactory';
 import { Shape } from '../../model/shapes/Shape';
 import { Problem } from '../../model/Problem';
-import {  Path,  Point } from 'paper';
+import { Path, Point } from 'paper';
 
 export class PaperUI extends UI {
         
@@ -43,8 +43,6 @@ export class PaperUI extends UI {
     }
 
     public draw(shapeList : Shape[], isDrawCanvas: boolean): void {
-        console.log("PaperUI.draw()");
-        
         //clear canvas
         if(isDrawCanvas)
         {

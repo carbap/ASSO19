@@ -34,6 +34,5 @@ export class PaperUnion extends PaperShape {
 
         this.shape.fillColor = 'purple';
         this.shape.rotate(union.getRotation());
-        console.log("Instancing PaperUnion");
     }
 }

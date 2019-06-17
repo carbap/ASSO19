@@ -127,8 +127,44 @@ draw c1
 ```
 
 ### Problem 3:
-
+```
+create triangle t1 100 100 400 100 100 450
+create triangle t2 150 450 450 450 450 100
+create square s1 200 200 150
+create intersection inter1 s1 t1
+create intersection inter2 s1 t2
+draw s1
+draw t1
+draw t2
+draw inter1
+draw inter2
+```
 ### Problem 4:
+
+The drawings match, but unable to complete within the time limit (22s/20s):
+```
+create triangle t1 100 350 450 350 275 50
+create circle c1 275 275 100
+create circle c2 275 175 75
+create intersection inter c1 c2
+draw t1
+draw inter
+```
+
+The drawings match and completed within time limit (16s/20s):
+
+<b>Core 1</b>
+```
+create triangle t1 100 350 450 350 275 50
+draw t1
+```
+<b>Core 2</b>
+```
+create circle c1 275 275 100
+create circle c2 275 175 75
+create intersection inter c1 c2
+draw inter
+```
 
 ## Run
 Just open `/proj/index.html` on browser. Simple as that. If you're just trying out the application, there's no need to compile it first.

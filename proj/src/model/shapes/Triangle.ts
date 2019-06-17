@@ -8,11 +8,11 @@ export class Triangle extends Shape {
     private point2OG: Vector2;
     private point3OG: Vector2;
 
-    public constructor(ID: string, p1X: number, p1Y: number, p2X: number, p2Y: number, p3X: number, p3Y: number) {
+    public constructor(ID: string, p1X: number, p1Y: number, p2X: number, p2Y: number, p3X: number, p3Y: number, rotation: number = 0) {
         // A triangle center is the average of its 3 points
         let centerX = (p1X + p2X + p3X)/3;
         let centerY = (p1Y + p2Y + p3Y)/3;
-        super(ID, centerX, centerY);
+        super(ID, centerX, centerY, rotation);
 
         this.point1 = new Vector2(p1X, p1Y);
         this.point2 = new Vector2(p2X, p2Y);
@@ -69,6 +69,6 @@ export class Triangle extends Shape {
     public copy(): Triangle {
         return new Triangle(this.ID, this.point1.getX(), this.point1.getY(),
             this.point2.getX(), this.point2.getY(),
-            this.point3.getX(), this.point3.getY());
+            this.point3.getX(), this.point3.getY(), this.angle);
     }
 }
