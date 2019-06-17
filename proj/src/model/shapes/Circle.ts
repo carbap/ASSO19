@@ -23,11 +23,6 @@ export class Circle extends Shape {
         return this.radius;
     }
 
-    /* public draw(): Path.Circle {
-        // retornar paperjs circulo
-        return new Path.Circle(this.center, this.radius);
-    } */
-
     public copy(): Circle {
         return new Circle(this.ID, this.center.getX(), this.center.getY(), this.radius);
     }

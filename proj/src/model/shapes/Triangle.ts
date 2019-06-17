@@ -66,20 +66,6 @@ export class Triangle extends Shape {
         return this.point3;        
     }
 
-    //public draw(): Path {
-        // retornar paperjs triangulo
-        /*
-        var myPath = new Path();
-        myPath.strokeColor = 'black';
-        myPath.add(new Point(40, 90));
-        myPath.add(new Point(90, 40));
-        myPath.add(new Point(140, 90));
-
-        myPath.closed = true;
-        */
-       // return new Path();
-    //}
-
     public copy(): Triangle {
         return new Triangle(this.ID, this.point1.getX(), this.point1.getY(),
             this.point2.getX(), this.point2.getY(),

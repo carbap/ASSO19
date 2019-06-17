@@ -23,11 +23,6 @@ export class Square extends Shape {
         this.size *= factor;
     }
 
-    //public draw(): Path.Rectangle {
-        // retornar paperjs quadrado
-        //return new Path();
-    //}
-
     public copy(): Square {
         return new Square(this.ID, this.center.getX(), this.center.getY(), this.size, this.angle);
     }

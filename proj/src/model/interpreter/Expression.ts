@@ -34,7 +34,6 @@ export class Expression {
 
     public interpret(context: string): boolean {
         let instruction: string = context.split(' ')[0];
-        console.log("expression arguments: ", context.split(' '));
         let expression: Expression;
         switch(instruction) {
             case 'create':
@@ -239,7 +238,6 @@ class SignalExpression extends Expression {
         // takes no arguments
 
         let args: string[] = context.split(' ');
-        console.log("signal args: ", args);
         if(args.length > 1 || (args.length == 1 && args[0] != 'signal')) {
             (<any> this.rootExpression).addError("Signal instruction takes no arguments");
             return false;
@@ -272,6 +270,9 @@ class GeneralCreateExpression extends Expression {
                 break;
             case 'intersection':
                 expression = new CreateIntersectionExpression(this.rootExpression);
+                break;
+            case 'union':
+                expression = new CreateUnionExpression(this.rootExpression);
                 break;
             default:
                 (<any> this.rootExpression).addError("There's no shape called `" + creationSubject + "` that can be created");
@@ -362,6 +363,42 @@ class CreateIntersectionExpression extends Expression {
 
         let intersection = new Shapes.Intersection(ID, shapesToIntersect);
         let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), intersection);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class CreateUnionExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <newShapeID> <existingShape1ID> <existingShape2ID> ... <existingShapeNID>
+
+        let args: string[] = context.split(' ');
+
+        if(args.length < 3) {
+            (<any> this.rootExpression).addError("Not enough arguments to create union. You need at least 3 arguments. Should be: [newShapeID] [existingShape1ID] [existingShape2ID] ... [existingShapeNID]");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let shapesToUnite = [];
+
+        let IDsToUnite: string[] = context.substr(context.indexOf(' ') + 1).split(' ');
+        for(var id of IDsToUnite) {
+            let shape = this.rootExpression.getKernel().getShape(id);
+
+            if(shape == null) {
+                (<any> this.rootExpression).addError("There's no shape with ID `" + id + "` to be united");
+                return false;
+            }
+
+            shapesToUnite.push(shape.copy());
+        }
+
+        let union = new Shapes.Union(ID, shapesToUnite);
+        let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), union);
         (<any> this.rootExpression).setCommand(command);
 
         return true;

@@ -99,13 +99,11 @@ export class Kernel {
 
             // Check if compilation generated errors (Command is null)
             if(nextCommand == null) {
-                console.log("ERRO: ", interpreter.getErrors());
                 this.errors = this.errors.concat(interpreter.getErrors());
                 break;
             } else { // If no errors occurred. store and execute command (command needs to be executed because certain instructions require shapes already created for the interpreter to work)
                 nextCommand.execute();
                 this.commands.push(nextCommand);
-                console.log("EXECUTOU ", nextCommand);
             }
         }
 
@@ -117,9 +115,6 @@ export class Kernel {
 
             let coreDurations = this.coreCompilers.map(core => { return core.getTotalCoreDuration(); });
             this.programExecutionTime = Math.max(...coreDurations);
-            console.log("EXECUTION TIME ", this.programExecutionTime);
-        } else {
-            console.log("ERROS COMPILACAO: ", this.errors);
         }
 
         this.resetShapes();
@@ -173,8 +168,6 @@ export class Kernel {
     }
 
     public checkTime(): boolean{
-        console.log("this.programExecutionTime " + this.programExecutionTime);
-        console.log("this.getMaximumCompletionTime " + this.getCurrentProblem().getMaximumCompletionTime());
         return this.programExecutionTime <= this.getCurrentProblem().getMaximumCompletionTime();
     }
 
@@ -196,7 +189,6 @@ export class Kernel {
 
     public resetShapes(): void {
         for(var shape of this.runtimeShapes) {
-            console.log("a limpar ", shape);
             shape.reset();
         }
         this.runtimeShapes = [];
@@ -212,7 +204,6 @@ export class Kernel {
     }
 
     public setCores(core1: string[], core2: string[], core3: string[]) {
-        console.log("entrou set cores");
         this.core1 = core1;
         this.core2 = core2;
         this.core3 = core3;

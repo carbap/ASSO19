@@ -31,12 +31,6 @@ export class Intersection extends Shape {
         return this.intersectedShapes;
     }
 
-    //public draw(): Path.Rectangle {
-        // averiguar como retornar paperjs intersecao de figuras
-        // provavelmente vamos ter de ir buscar o path das varias shapes e UNION delas
-       // return new Path();
-    //}
-
     public copy(): Intersection {
         let intersectedShapesCopy: Shape[] = this.intersectedShapes.map(shape => { return shape.copy(); });
         return new Intersection(this.ID, intersectedShapesCopy);
