@@ -32,7 +32,7 @@ window.onload = () => {
     
     console.log("compileButton", compileButton);
     console.log("info zone", infoZone);
-    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, compileButton, nextButton, runButton, nextProblemButton, infoZone);
+    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, currentProblem, compileButton, nextButton, runButton, nextProblemButton, infoZone);
     controller = new Controller(model, view);
 
     var problems: Array<Problem> = defineProblems();
