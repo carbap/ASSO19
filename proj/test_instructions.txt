@@ -21,7 +21,38 @@ draw s
 create circle c 225 225 25
 draw c
 
+ // PROBLEM SOLUTIONS //
+
+//PROBLEM 1
 create square s1 0 0 50
 draw s1
 create circle c1 25 25 25
+draw c1
+
+//PROBLEM 2
+
+// The drawings match, but unable to complete within the time limit (18s/15s)
+create square s1 100 100 150
+create square s2 300 100 150
+create circle c1 275 175 25
+draw s1
+draw s2
+draw c1
+
+//The drawings match and completed within time limit (15s/15s)
+create square s1 100 100 150
+draw s1
+translate s1 200 0
+draw s1
+create circle c1 275 175 25
+draw c1
+
+//Even better execution time (9s/18s)
+CORE1:
+create square s1 100 100 150
+draw s1
+translate s1 200 0
+draw s1
+CORE2:
+create circle c1 275 175 25
 draw c1
