@@ -25,7 +25,7 @@ export class Kernel {
 
     private errors: Array<string> = [];
     private programExecutionTime = 0; // Check the core with the biggest duration of all its instructions
-    private commands: Array<Command> = []; //use Iterator
+    private commands: Array<Command> = []; // uses Iterator
     private commandIterator: number = 0; // Index of the next command to be executed
     private buildSucceeded: boolean = false;
 
@@ -33,7 +33,7 @@ export class Kernel {
     private drawnShapes: Array<Shape> = []; // shapes who have been in a DRAW instruction (the shape state is the one at the time of the DRAW instruction, NOT the updated one). Drawn shapes têm de ser cópias, porque se forem referencias, como so desenhamos no final, todas vao ter o estado final
     
     private problems: Array<Problem> = [];
-    private problemIterator: number = 0; //use Iterator
+    private problemIterator: number = 0; // uses Iterator
 
     constructor(core1: string[] = [], core2: string[] = [], core3: string[] = []) {
         this.core1 = core1;
@@ -108,9 +108,10 @@ export class Kernel {
         }
 
         if(this.errors.length == 0) {
-            // If no errors occured, just clean the generated shapes during commands execution because we are just compiling the code
-            // and we don't intend to draw them. The objective of compilation is just to get the commands that will be excuted when
-            // the instructions are run
+            /**
+             * If no errors occured, just clean the generated shapes during commands execution because we are just compiling the code
+             * and we don't intend to draw them. The objective of compilation is just to get the commands that will be excuted when the instructions are run
+             */ 
             this.buildSucceeded = true;
 
             let coreDurations = this.coreCompilers.map(core => { return core.getTotalCoreDuration(); });

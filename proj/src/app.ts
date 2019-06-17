@@ -3,23 +3,12 @@ import { UI } from './view/UI';
 import * as UIs from './view';
 import { Controller } from './controller/Controller';
 import { Problem } from './model/Problem';
-import { Rectangle, Path, Color, Point, Size } from 'paper';
 import * as Shapes from './model/shapes';
-
-//PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
-//paper.install(window); // Make the paper scope global, by injecting it into window (É importante fazer quando a apalicaçao abre)
 
 var model: Kernel = new Kernel();
 var controller: Controller;
 
 window.onload = () => {
-    console.log("BOASSSS");
-
-    //paper.project.clear();  //so faz clear do canvas atual (nest caso myCanvas2)
-    
-    //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
-    //paper.view.draw()
-
     var drawCanvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
     var problemCanvas = <HTMLCanvasElement>document.getElementById('problemCanvas');
     var currentProblem = <HTMLLabelElement>document.getElementById('currentProblem');
@@ -83,39 +72,3 @@ function problem4(){
     let inter = new Shapes.Intersection("inter", [circle1, circle2]);
     return new Problem(20, triangle, inter);
 }
-/**
- * DEAD LOCK EXCELENT EXAMPLE
- * Core 1
- * create square s1 0 0 50
- * signal
- * 
- * Core 2
- * create circle c1 25    25      25    
- * signal
- * 
- * Core 3
- * wait 1
- * wait 2
- * draw s1
- * draw c1
- */
-//EXAMPLE PAPER STUFF FOR QUICK ACCESS
-/*
-paper.setup('drawCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
-
-var rectangle = new Rectangle(new Point(0, 0), new Size(50, 50));
-var path = new Path.Rectangle(rectangle);
-path.strokeColor = 'black';
-
-var myCircle = new Path.Circle(new Point(100, 70), 50);
-myCircle.strokeColor = 'black';
-myCircle.selected = true;
-
-paper.setup('problemCanvas');
-
-var path = new Path();
-path.strokeColor = new Color('black');
-var start = new Point(100, 100);
-path.moveTo(start);
-path.lineTo(start.add(new Point(200, -50 )));
-*/

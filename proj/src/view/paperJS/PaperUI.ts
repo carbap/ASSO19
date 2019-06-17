@@ -43,8 +43,6 @@ export class PaperUI extends UI {
     }
 
     public draw(shapeList : Shape[], isDrawCanvas: boolean): void {
-        console.log("PaperUI.draw()");
-        
         //clear canvas
         if(isDrawCanvas)
         {

@@ -149,7 +149,6 @@ export abstract class UI {
             this.removeEmpty(processedInstructions);
             processedCoresText.push(processedInstructions);
         }
-        console.log(processedCoresText);
 
         this.compileBtnHandler(... processedCoresText);
     }

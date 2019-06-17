@@ -3,9 +3,9 @@ import { Shape } from './Shape';
 export class Union extends Shape {
     private unitedShapes: Shape[];
 
-    public constructor(ID: string, unitedShapes: Shape[]) {
-        // An intersection doesn't have a center
-        super(ID, 0, 0);
+    public constructor(ID: string, unitedShapes: Shape[], rotation: number = 0) {
+        // A union doesn't have a center
+        super(ID, 0, 0, rotation);
         this.unitedShapes = unitedShapes;
     }
 
@@ -13,6 +13,7 @@ export class Union extends Shape {
         for(var shape of this.unitedShapes){
             shape.reset();
         }
+        super.reset();
     }
 
     public translate(offsetX: number, offsetY: number) {
@@ -33,6 +34,6 @@ export class Union extends Shape {
 
     public copy(): Union {
         let unitedShapesCopy: Shape[] = this.unitedShapes.map(shape => { return shape.copy(); });
-        return new Union(this.ID, unitedShapesCopy);
+        return new Union(this.ID, unitedShapesCopy, this.angle);
     }
 }

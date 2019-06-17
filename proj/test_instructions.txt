@@ -21,6 +21,23 @@ draw s
 create circle c 225 225 25
 draw c
 
+/**
+ * DEAD LOCK EXCELLENT EXAMPLE
+ * Core 1
+ * create square s1 0 0 50
+ * signal
+ * 
+ * Core 2
+ * create circle c1 25    25      25    
+ * signal
+ * 
+ * Core 3
+ * wait 1
+ * wait 2
+ * draw s1
+ * draw c1
+ */
+ 
  // PROBLEM SOLUTIONS //
 
 //PROBLEM 1

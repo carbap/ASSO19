@@ -23,29 +23,16 @@ export class Controller {
     }
     
     public compile(core1Instructions: string[], core2Instructions: string[], core3Instructions: string[]) {
-        let core1Text = <HTMLTextAreaElement> document.getElementById('core1_instructions');
-        let core2Text = <HTMLTextAreaElement> document.getElementById('core2_instructions');
-        let core3Text = <HTMLTextAreaElement> document.getElementById('core3_instructions');
-
-        if(core1Text && core2Text && core3Text) {
-            
-            this.model.setCores(core1Instructions, core2Instructions, core3Instructions);
-        } else {
-            console.log("PROBLEMAS A IR BUSCAR TEXT AREAS DOS CORES");
-        }
+        this.model.setCores(core1Instructions, core2Instructions, core3Instructions);
 
         if(this.model.compile()) {
-            console.log("COMPILOU");
             this.view.compileSuccessful();
         } else {
-            console.log("ERROS");
             this.view.compileFailed(this.model.getErrors());
         }
     }
 
     public next() {
-        console.log("Running next instruction");
-        
         this.model.runNext();
         
         this.view.draw(this.model.getDrawnShapes(), true);
@@ -58,7 +45,6 @@ export class Controller {
     public run() {
         this.model.runAll();
         this.view.draw(this.model.getDrawnShapes(), true);
-        console.log("Finished running");
 
         if(!this.model.hasNext()) {
             this.checkSolved();
