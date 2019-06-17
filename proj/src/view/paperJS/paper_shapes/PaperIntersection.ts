@@ -33,6 +33,7 @@ export class PaperIntersection extends PaperShape {
         }
 
         this.shape.fillColor = 'blue';
+        this.shape.rotate(intersection.getRotation());
         console.log("Instancing PaperIntersection");
     }
 }
