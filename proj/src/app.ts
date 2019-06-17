@@ -20,23 +20,25 @@ window.onload = () => {
     //PARA JA NAO É PRECISO, MAS NUNCA SE SABE NO FUTURO COM COISAS EM FICHEIROS DIFERENTES
     //paper.view.draw()
 
-    //TODO: ADICIONAR INSTRUCAO DE WAIT/SIGNAL
-
     var drawCanvas = <HTMLCanvasElement>document.getElementById('drawCanvas');
     var problemCanvas = <HTMLCanvasElement>document.getElementById('problemCanvas');
     var currentProblem = <HTMLLabelElement>document.getElementById('currentProblem');
 
-    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, currentProblem);
+    var compileButton = <HTMLElement>document.getElementById('compile');
+    var nextButton = <HTMLElement>document.getElementById('step');
+    var runButton = <HTMLElement>document.getElementById('run');
+    var nextProblemButton = <HTMLElement>document.getElementById('nextProblem');
+    var infoZone = <HTMLElement>document.getElementById('info');
+    
+    console.log("compileButton", compileButton);
+    console.log("info zone", infoZone);
+    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, compileButton, nextButton, runButton, nextProblemButton, infoZone);
     controller = new Controller(model, view);
 
     var problems: Array<Problem> = defineProblems();
     model.setProblems(problems); //TO DO: passar os problems pelo construtor do Kernel
     view.updateProblem(model.getProblemIterator(), model.getProblems().length);
     controller.drawProblem(); 
-    
-    var compileButton = <HTMLElement>document.getElementById('compile');
-    var nextButton = <HTMLElement>document.getElementById('step');
-    var runButton = <HTMLElement>document.getElementById('run');
 
     if(compileButton) 
         compileButton.onclick = controller.compile.bind(controller);
@@ -46,6 +48,9 @@ window.onload = () => {
 
     if(runButton)
         runButton.onclick = controller.run.bind(controller);
+
+    if(nextProblemButton)
+        nextProblemButton.onclick = controller.nextProblem.bind(controller);
 }
 
 function defineProblems(): Array<Problem> {

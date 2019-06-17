@@ -30,14 +30,9 @@
             <button id="compile">Compile</button>
             <button id="step">Step</button>
             <button id="run">Run</button>
+            <button id="nextProblem">Next Problem</button>
         </div>
 
-        
-
-
-    
-
-    
         <div class="drawings d-flex justify-content-start">
             <div class="d-flex flex-column p-3 mr-3">
                 <label>Output</label>
@@ -47,10 +42,15 @@
                 <label id="currentProblem"></label>   
                 <canvas id="problemCanvas" width="550" height="550"></canvas>
             </div>
+            <div class="d-flex flex-column p-3" style="margin-top: 10px; margin-bottom: 30px;">
+                <b>Program info</b>
+                <br/>
+                <div id="info">
+                    Information related to program compilation and solution verification
+                </div>
+            </div>
         </div>
 
-
     </div>
-    
 </body>
 </html>

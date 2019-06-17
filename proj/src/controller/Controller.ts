@@ -42,10 +42,10 @@ export class Controller {
 
         if(this.model.compile()) {
             console.log("COMPILOU");
-            // this.view.activate step and run buttons
+            this.view.compileSuccessful();
         } else {
             console.log("ERROS");
-            // this.view.disactivate step and run buttons
+            this.view.compileFailed(this.model.getErrors());
         }
     }
 
@@ -58,7 +58,12 @@ export class Controller {
 
         if(!this.model.hasNext()) {
             console.log("Finished running");
-            this.compare();
+            console.log(this.view.compare());
+
+            if(this.view.compare())
+                this.view.problemSolved();
+            else
+                this.view.problemNotSolved();
         }
     }
 
@@ -73,21 +78,21 @@ export class Controller {
     }
 
     public compare(){
-        if(this.view.compare()){
+        console.log(this.view.compare());
+        if(this.view.compare()) {
+            this.view.problemSolved();
             this.model.nextProblem();
             this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems().length);
+        } else {
+            this.view.problemNotSolved();
         }
+    }
+
+    public nextProblem() {
+        //TODO: apresentar proximo problema
     }
 
     public drawProblem(){
         this.view.drawProblem(this.model.getCurrentProblem());
     }
 }
-
-/*window.onload = () => {
-    var core1Text = document.getElementById('run');
-    var runButton = document.getElementById('run');
-    if(runButton) {
-        runButton.addEventListener("click", instructionSubmission, false);
-    }
-}*/

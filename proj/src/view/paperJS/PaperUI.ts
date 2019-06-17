@@ -11,8 +11,11 @@ export class PaperUI extends UI {
     private problemScope: PaperScope;
     private currentProblem: HTMLLabelElement;
 
-    constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement, currentProblem: HTMLLabelElement) {
-        super(drawingCanvas, problemCanvas);
+    constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement, currentProblem: HTMLLabelElement,
+        compileButton: HTMLElement, nextButton: HTMLElement, runButton: HTMLElement, nextProblemButton: HTMLElement,
+        infoDiv: HTMLElement) {
+        super(drawingCanvas, problemCanvas, compileButton, nextButton, runButton, nextProblemButton, infoDiv);
+
         this.drawScope = new PaperScope();
         this.problemScope = new PaperScope();
         this.drawScope.setup(this.drawingCanvas);
