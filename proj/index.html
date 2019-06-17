@@ -3,33 +3,54 @@
 <head>
     <script src="./dist/paperJS/dist/paper-core.js"></script>
     <script src="./dist/bundle.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
-    <h1>Kernel Draw</h1>
+    <h1 class="ml-3">Kernel Draw</h1>
     
-    <div class="core">
-        <label>Core 1</label>
-        <textarea id="core1_instructions" cols="50" rows ="15"></textarea>
-    </div>
-    <div class="core">
-        <label>Core 2</label>
-        <textarea id="core2_instructions" cols="50" rows ="15"></textarea>
-    </div>
-    <div class="core">
-        <label>Core 3</label>
-        <textarea id="core3_instructions" cols="50" rows ="15"></textarea>
-    </div>
+    <div class="kernelDraw">
+        <div class="userControl d-flex justify-content-start">
+            <div class="core d-flex flex-column p-3">
+                <label class="p-1">Core 1</label>
+                <textarea id="core1_instructions" cols="50" rows ="15" class="p-1"></textarea>
+            </div>
+            <div class="core d-flex flex-column p-3">
+                <label class="p-1">Core 2</label>
+                <textarea id="core2_instructions" cols="50" rows ="15" class="p-1"></textarea>
+            </div>
+            <div class="core d-flex flex-column p-3">
+                <label class="p-1">Core 3</label>
+                <textarea id="core3_instructions" cols="50" rows ="15" class="p-1"></textarea>
+            </div>
+        </div>
 
-    <button id="compile">Compile</button>
-    <button id="step">Step</button>
-    <button id="run">Run</button>
+        <div class="buttons ml-3">
+            <button id="compile">Compile</button>
+            <button id="step">Step</button>
+            <button id="run">Run</button>
+        </div>
 
-    <canvas id="drawCanvas" width="550" height="550"></canvas>
-    <div class="problem">
-        <label id="currentProblem"></label>
-        <canvas id="problemCanvas" width="550" height="550"></canvas>
+        
+
+
+    
+
+    
+        <div class="drawings d-flex justify-content-start">
+            <div class="d-flex flex-column p-3 mr-3">
+                <label>Output</label>
+                <canvas id="drawCanvas" width="550" height="550"></canvas>
+            </div>
+            <div class="d-flex flex-column p-3">
+                <label id="currentProblem"></label>   
+                <canvas id="problemCanvas" width="550" height="550"></canvas>
+            </div>
+        </div>
+
+
     </div>
-
+    
 </body>
 </html>
