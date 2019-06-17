@@ -1,5 +1,24 @@
 # Kernel Draw
 
+## Requirements:
+- Instructions for creating, drawing and performing basic operations on geometric shapes
+- User can type instructions in 3 different "cores"
+- Instructions run asynchronously between cores
+- Cores can wait for each other using the wait and signal instructions
+- Instructions have a (fictional) time that they take to execute
+- Interpret instructions and check for compilation errors
+- Display errors to user
+- Run each line of code step by step
+- User sees changes each step
+- Run all code at once
+- Check if user generated figure matches the proposed image
+- Check if the time to execute user code did not surpass the problem's time limit
+- Advance to the next problem if the previous one was solved sucessfuly
+
+## Dependencies
+
+[Paper.js](http://paperjs.org/) was used to help with the drawing logic of geometric shapes.
+
 ## Architecture
 
 ### Architectural patterns:
@@ -37,25 +56,15 @@ The Controller has the role of a Mediator, so the communication between Model an
 (create shapes)
 
 #### Composite
-(group shapes together; that group is still a shape and has draw method; only the draw logic would be outsourced - props to [Paper.js](http://paperjs.org/))
+(group shapes together; a group is still a shape and has draw method)
 
 #### Null Object
 (Null Shape used for signal and wait commands because they dont act on a shape. However, Command base class must always receive a Shape)
 
-## Requirements:
-- User types in commands in many "cores"
-- interpret commands and check errors
-- display errors to users
-- run each line of code step by step
-- user sees changes each step, and also the current existing objects
-- run all code at once
-- check if user generated figure matches the proposed image
-
-
 ## Instructions:
 
 The index.html page itself contains information about all the instructions available to the user, namely the arguments they take and the time associated to them.<br>
-In this section we will provide some possible solutions for the existing problems, that could be used for testing:
+In this section we will provide some possible solutions for the presented problems, that could be used for testing:
 
 ### Problem 1:
 ```
@@ -66,8 +75,6 @@ draw c1
 ```
 
 ### Problem 2:
-
-### Problem 3:
 
 The drawings match, but unable to complete within the time limit (18s/15s):
 ```
@@ -103,6 +110,8 @@ draw s1
 create circle c1 275 175 25
 draw c1
 ```
+
+### Problem 3:
 
 ### Problem 4:
 
