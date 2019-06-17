@@ -74,7 +74,9 @@ export class Controller {
         }
     }
 
-    public checkSolved(){
+    public async checkSolved(){
+        console.log(this.view.compare());
+        await this.view.buildSuspense();
         if(this.view.compare()) {
 
             this.view.drawingsMatch(true);
@@ -91,8 +93,13 @@ export class Controller {
         this.view.completionTime(this.model.getProgramExecutionTime(), this.model.getCurrentProblem().getMaximumCompletionTime());
     }
 
+    public coreChanged() {
+        this.view.activateCompilation();
+    }
+
     public nextProblem() {
-        //TODO: apresentar proximo problema
+        this.model.nextProblem();
+        this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems());
     }
 
     public drawProblem(){

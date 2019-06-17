@@ -40,6 +40,10 @@ window.onload = () => {
     view.updateProblem(model.getProblemIterator(), model.getProblems());
     controller.drawProblem(); 
 
+    let core1 = <HTMLTextAreaElement> document.getElementById('core1_instructions');
+    let core2 = <HTMLTextAreaElement> document.getElementById('core2_instructions');
+    let core3 = <HTMLTextAreaElement> document.getElementById('core3_instructions');
+
     if(compileButton) 
         compileButton.onclick = controller.compile.bind(controller);
 
@@ -51,6 +55,12 @@ window.onload = () => {
 
     if(nextProblemButton)
         nextProblemButton.onclick = controller.nextProblem.bind(controller);
+
+    if(core1 && core2 && core3) {
+        core1.onkeydown = controller.coreChanged.bind(controller);
+        core2.onkeydown = controller.coreChanged.bind(controller);
+        core3.onkeydown = controller.coreChanged.bind(controller);
+    }
 }
 
 function defineProblems(): Array<Problem> {

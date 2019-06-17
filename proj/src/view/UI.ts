@@ -52,6 +52,9 @@ export abstract class UI {
         this.compileButton.style.visibility = 'visible';
         this.nextButton.style.visibility = 'hidden';
         this.runButton.style.visibility = 'hidden';
+
+        this.infoDiv.innerHTML = "Information related to program compilation and solution verification";
+        this.infoDiv.style.color = 'black';
     }
 
     public compileSuccessful() {
@@ -82,7 +85,6 @@ export abstract class UI {
             this.infoDiv.innerHTML = "Checking solution.."; let promise3 = new Promise((resolve, reject) => {setTimeout(() => resolve(), timeBetweenUpdate)}); await promise3;
             this.infoDiv.innerHTML = "Checking solution..."; let promise4 = new Promise((resolve, reject) => {setTimeout(() => resolve(), timeBetweenUpdate)}); await promise4;
         }
-        //ESTA A FALHAR
     }
 
     private hideInstructionButtons() {
@@ -90,9 +92,7 @@ export abstract class UI {
         this.runButton.style.visibility = 'hidden';
     }
 
-    public async drawingsMatch(match: boolean) {
-        await this.buildSuspense();
-
+    public drawingsMatch(match: boolean) {
         this.hideInstructionButtons();
         if(match){
             this.nextProblemButton.style.visibility = 'visible';
