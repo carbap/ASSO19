@@ -51,9 +51,6 @@ export class Controller {
         this.view.draw(this.model.getDrawnShapes(), true);
 
         if(!this.model.hasNext()) {
-            console.log("Finished running");
-            console.log(this.view.compare());
-
             this.checkSolved();
         }
     }
@@ -70,10 +67,8 @@ export class Controller {
 
     public async checkSolved(){
         this.view.hideInstructionButtons();
-        await this.view.buildSuspense();
         
-        if(this.view.compare()) {
-
+        if(await this.view.compare()) {
             this.view.drawingsMatch(true);
             this.view.completionTime(this.model.getProgramExecutionTime(), this.model.getCurrentProblem().getMaximumCompletionTime());
         } 

@@ -25,7 +25,8 @@ export class PaperUI extends UI {
         this.currentProblem = currentProblem;
     }
  
-    public compare(): boolean {
+    public async compare(): Promise<boolean> {
+        await this.buildSuspense();
         var drawBytes = this.drawingCanvas.getContext('2d').getImageData(0, 0, this.drawingCanvas.width, this.drawingCanvas.height).data;
         var problemBytes = this.problemCanvas.getContext('2d').getImageData(0, 0, this.problemCanvas.width, this.problemCanvas.height).data;
 

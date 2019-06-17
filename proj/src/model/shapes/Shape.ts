@@ -4,14 +4,16 @@ export abstract class Shape {
     private readonly centerOG: Vector2;
     protected angle: number = 0;
 
-    public constructor(ID: string, centerX: number, centerY: number) {
+    public constructor(ID: string, centerX: number, centerY: number, rotation: number = 0) {
         this.ID = ID;
         this.center = new Vector2(centerX, centerY);
         this.centerOG = new Vector2(centerX, centerY);
+        this.angle = rotation;
     }
 
     public reset() {
         this.center = new Vector2(this.centerOG.getX(), this.centerOG.getY());
+        this.angle = 0;
     }
     
     public getID(): string {
@@ -38,12 +40,7 @@ export abstract class Shape {
 
     abstract scale(factor: number): void;
 
-    //abstract draw(): Path; // mudar para classe do paper.js quando tivermos   // TO DO: remove?
-
     abstract copy(): Shape; // Return a deep copy object of the current shape
-
-    // NOTE: shapes should not know to draw themselves, that should be dependant of a view
-    // so draw should be the execute of a command, that knows the existing shapes and the view on which to draw
 }
 
 export class Vector2 {

@@ -41,7 +41,7 @@ export abstract class UI {
         this.drawGrids(problemCanvas);
     }
 
-    public abstract compare(): boolean;
+    public abstract compare(): Promise<boolean>;
 
     public abstract draw(shapeList : Shape[], isDrawCanvas: boolean): void;
 

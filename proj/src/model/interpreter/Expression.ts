@@ -55,6 +55,9 @@ export class Expression {
             case 'signal':
                 expression = new SignalExpression(this);
                 break;
+            case 'rotate':
+                expression = new RotateExpression(this);
+                break;
             default:
                 this.addError("There's no instruction called " + instruction);
                 return false;
@@ -70,6 +73,7 @@ export class Expression {
  * - draw
  * - scale
  * - translate
+ * - rotate
  * - wait
  * - signal
  * - create shape
@@ -160,6 +164,41 @@ class TranslateExpression extends Expression {
         }
 
         let command = new Commands.TranslateCommand(this.rootExpression.getKernel(), shape, translateX, translateY);
+        (<any> this.rootExpression).setCommand(command);
+
+        return true;
+    }
+}
+
+class RotateExpression extends Expression {
+    constructor(private rootExpression: Expression){ super(); }
+
+    public interpret(context: string): boolean {
+        // <ID> <rotationDegrees>
+
+        let args: string[] = context.split(' ');
+
+        if(args.length != 2) {
+            (<any> this.rootExpression).addError("Invalid amount of arguments to translate shape. Should be: [ID] [rotationDegrees]");
+            return false;
+        }
+
+        let ID: string = args[0];
+        let rotationDegrees: number = Number(args[1]);
+
+        if(isNaN(rotationDegrees)) {
+            (<any> this.rootExpression).addError("[rotationDegrees] must be a number");
+            return false;
+        }
+
+        let shape = this.rootExpression.getKernel().getShape(ID);
+
+        if(shape == null) {
+            (<any> this.rootExpression).addError("There's no shape with ID `" + ID + "` to be rotate");
+            return false;
+        }
+
+        let command = new Commands.RotateCommand(this.rootExpression.getKernel(), shape, rotationDegrees);
         (<any> this.rootExpression).setCommand(command);
 
         return true;
@@ -318,7 +357,7 @@ class CreateIntersectionExpression extends Expression {
                 return false;
             }
 
-            shapesToIntersect.push(shape);
+            shapesToIntersect.push(shape.copy());
         }
 
         let intersection = new Shapes.Intersection(ID, shapesToIntersect);

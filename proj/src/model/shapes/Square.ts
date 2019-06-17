@@ -4,8 +4,8 @@ export class Square extends Shape {
     private size: number;
     private sizeOG: number;
 
-    public constructor(ID: string, centerX: number, centerY: number, size: number) {
-        super(ID, centerX, centerY);
+    public constructor(ID: string, centerX: number, centerY: number, size: number, rotation: number = 0) {
+        super(ID, centerX, centerY, rotation);
         this.size = size;
         this.sizeOG = size;
     }
@@ -29,6 +29,6 @@ export class Square extends Shape {
     //}
 
     public copy(): Square {
-        return new Square(this.ID, this.center.getX(), this.center.getY(), this.size);
+        return new Square(this.ID, this.center.getX(), this.center.getY(), this.size, this.angle);
     }
 }
