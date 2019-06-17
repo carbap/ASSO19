@@ -60,10 +60,7 @@ export class Controller {
             console.log("Finished running");
             console.log(this.view.compare());
 
-            if(this.view.compare())
-                this.view.problemSolved();
-            else
-                this.view.problemNotSolved();
+            this.checkSolved();
         }
     }
 
@@ -73,19 +70,25 @@ export class Controller {
         console.log("Finished running");
 
         if(!this.model.hasNext()) {
-            this.compare();
+            this.checkSolved();
         }
     }
 
-    public compare(){
-        console.log(this.view.compare());
+    public checkSolved(){
         if(this.view.compare()) {
-            this.view.problemSolved();
-            this.model.nextProblem();
-            this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems());
-        } else {
-            this.view.problemNotSolved();
+
+            this.view.drawingsMatch(true);
+            
+            if(this.model.checkTime()){
+                this.model.nextProblem();
+                this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems());
+            }
+        } 
+        else {
+            this.view.drawingsMatch(false);
         }
+
+        this.view.completionTime(this.model.getProgramExecutionTime(), this.model.getCurrentProblem().getMaximumCompletionTime());
     }
 
     public nextProblem() {

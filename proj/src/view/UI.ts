@@ -90,21 +90,27 @@ export abstract class UI {
         this.runButton.style.visibility = 'hidden';
     }
 
-    public async problemSolved() {
+    public async drawingsMatch(match: boolean) {
         await this.buildSuspense();
 
         this.hideInstructionButtons();
-        this.nextProblemButton.style.visibility = 'visible';
-        this.infoDiv.innerHTML = "IT'S A MATCH!!!"
-        this.infoDiv.style.color = 'green';
+        if(match){
+            this.nextProblemButton.style.visibility = 'visible';
+            this.infoDiv.innerHTML = "IT'S A MATCH!!!\n";
+            this.infoDiv.style.color = 'green';
+        }
+        else{
+            this.infoDiv.innerHTML = "DRAWINGS DON'T MATCH\n"
+            this.infoDiv.style.color = 'red';
+        }
     }
 
-    public async problemNotSolved() {
-        await this.buildSuspense();
-
-        this.hideInstructionButtons();
-        this.infoDiv.innerHTML = "DRAWINGS DON'T MATCH"
-        this.infoDiv.style.color = 'red';
+    public completionTime(time: number, maximumTime: number){
+        this.infoDiv.innerHTML += "Completion time: " + time + "s. Maximum allowed time: " + maximumTime + "s.";
+        if(time <= maximumTime)
+            this.infoDiv.style.color = 'green';
+        else
+            this.infoDiv.style.color = 'red';
     }
 
     public drawProblem(problem: Problem){

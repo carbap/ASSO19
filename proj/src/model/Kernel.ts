@@ -172,6 +172,12 @@ export class Kernel {
         }
     }
 
+    public checkTime(): boolean{
+        console.log("this.programExecutionTime " + this.programExecutionTime);
+        console.log("this.getMaximumCompletionTime " + this.getCurrentProblem().getMaximumCompletionTime());
+        return this.programExecutionTime <= this.getCurrentProblem().getMaximumCompletionTime();
+    }
+
     public existsShape(shapeID: string): boolean {
         for(var shape of this.runtimeShapes) {
             if(shape.getID() === shapeID)
@@ -210,6 +216,10 @@ export class Kernel {
         this.core1 = core1;
         this.core2 = core2;
         this.core3 = core3;
+    }
+
+    public getProgramExecutionTime(): number{
+        return this.programExecutionTime;
     }
 
     public getCurrentProblem(): Problem{
