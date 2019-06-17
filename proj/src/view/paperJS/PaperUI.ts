@@ -1,7 +1,6 @@
 import { UI } from '../UI';
 import { PaperScope, Raster, } from 'paper';
-import * as Shapes from '../../model/shapes';
-import * as PaperShapes from './paper_shapes';
+import { PaperFactory } from './PaperFactory';
 import { Shape } from '../../model/shapes/Shape';
 import { Problem } from '../../model/Problem';
 import {  Path,  Point } from 'paper';
@@ -11,6 +10,8 @@ export class PaperUI extends UI {
     private drawScope: PaperScope;
     private problemScope: PaperScope;
     private currentProblem: HTMLLabelElement;
+
+    private paperShapeFactory: PaperFactory = new PaperFactory();
 
     constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement, currentProblem: HTMLLabelElement,
         compileButton: HTMLElement, nextButton: HTMLElement, runButton: HTMLElement, nextProblemButton: HTMLElement,
@@ -56,19 +57,7 @@ export class PaperUI extends UI {
         }
         
         for(var i = 0; i < shapeList.length; i++) {
-            var temp;
-            if(shapeList[i] instanceof Shapes.Circle) {
-                temp = new PaperShapes.PaperCircle(<Shapes.Circle>shapeList[i]);
-            }
-            else if(shapeList[i] instanceof Shapes.Square) {
-                temp = new PaperShapes.PaperSquare(<Shapes.Square>shapeList[i]);
-            }
-            else if(shapeList[i] instanceof Shapes.Triangle) {
-                temp = new PaperShapes.PaperTriangle(<Shapes.Triangle>shapeList[i]);
-            }
-            else if(shapeList[i] instanceof Shapes.Intersection) {
-                temp = new PaperShapes.PaperIntersection(<Shapes.Intersection>shapeList[i]);
-            }
+            this.paperShapeFactory.createPaperShape(shapeList[i]);
         }
     }
 
