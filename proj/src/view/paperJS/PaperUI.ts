@@ -1,5 +1,5 @@
 import { UI } from '../UI';
-import { PaperScope, Raster, } from 'paper';
+import { PaperScope } from 'paper';
 import { PaperFactory } from './PaperFactory';
 import { Shape } from '../../model/shapes/Shape';
 import { Problem } from '../../model/Problem';

@@ -1,4 +1,5 @@
 import * as PaperShapes from './paper_shapes';
+import { PaperShape } from './paper_shapes/PaperShape';
 import { Shape } from '../../model/shapes/Shape';
 import * as Shapes from '../../model/shapes';
 
@@ -7,8 +8,8 @@ export class PaperFactory {
 
     }
 
-    public createPaperShape(shapeItem : Shape) : void {
-        var ret;
+    public createPaperShape(shapeItem : Shape) : PaperShape {
+        var ret : PaperShape = new PaperShapes.PaperEmpty();
         if(shapeItem instanceof Shapes.Circle) {
             ret = new PaperShapes.PaperCircle(<Shapes.Circle>shapeItem);
         }
@@ -21,5 +22,7 @@ export class PaperFactory {
         else if(shapeItem instanceof Shapes.Intersection) {
             ret = new PaperShapes.PaperIntersection(<Shapes.Intersection>shapeItem);
         }
+
+        return ret;
     }
 }
