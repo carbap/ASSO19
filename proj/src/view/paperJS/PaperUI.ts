@@ -4,7 +4,7 @@ import * as Shapes from '../../model/shapes';
 import * as PaperShapes from './paper_shapes';
 import { Shape } from '../../model/shapes/Shape';
 import { Problem } from '../../model/Problem';
-import { Rectangle, Path, Color, Point, Size } from 'paper';
+import {  Path,  Point } from 'paper';
 
 export class PaperUI extends UI {
         
