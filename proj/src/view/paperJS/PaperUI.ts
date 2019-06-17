@@ -3,7 +3,7 @@ import { PaperScope } from 'paper';
 import { PaperFactory } from './PaperFactory';
 import { Shape } from '../../model/shapes/Shape';
 import { Problem } from '../../model/Problem';
-import {  Path,  Point } from 'paper';
+import { Path, Point } from 'paper';
 
 export class PaperUI extends UI {
         

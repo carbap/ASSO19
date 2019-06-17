@@ -38,7 +38,6 @@ export abstract class Shape {
     public rotate(degrees: number) {
         this.angle += degrees;
         this.angle %= 360;
-        console.log("angulo", this.angle);
     }
 
     abstract scale(factor: number): void;

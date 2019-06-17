@@ -11,17 +11,6 @@ export class Controller {
         this.view = view;
     }
     
-    private removeEmpty(arr: string[]) {
-        for(let i = 0; i < arr.length; i++) {
-            if(arr[i] === "") {
-                arr.splice(i, 1);
-                i--;
-            } else {
-                arr[i] = arr[i].trim();
-            }
-        }
-    }
-    
     public compile(core1Instructions: string[], core2Instructions: string[], core3Instructions: string[]) {
         this.model.setCores(core1Instructions, core2Instructions, core3Instructions);
 

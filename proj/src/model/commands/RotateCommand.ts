@@ -12,7 +12,6 @@ export class RotateCommand extends Command {
     }
 
     public execute() {
-        console.log("Executou rotate")
         this.shape.rotate(this.rotation);
     }
 }
