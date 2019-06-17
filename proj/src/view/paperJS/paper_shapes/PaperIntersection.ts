@@ -31,9 +31,10 @@ export class PaperIntersection extends PaperShape {
                 }      
                 else {
                     var int = this.shape.intersect(temp.getShape());
+                    this.shape.remove();
                     this.shape = <Path>int;
-                }
                     
+                }
             }         
         }
 
