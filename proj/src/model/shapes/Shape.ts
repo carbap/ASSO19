@@ -2,7 +2,7 @@ export abstract class Shape {
     protected ID: string;
     protected center: Vector2;
     private readonly centerOG: Vector2;
-    protected angle: number = 45; // para rotaçao????
+    protected angle: number = 0;
 
     public constructor(ID: string, centerX: number, centerY: number) {
         this.ID = ID;
