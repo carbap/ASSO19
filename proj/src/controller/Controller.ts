@@ -75,22 +75,17 @@ export class Controller {
     }
 
     public async checkSolved(){
-        console.log(this.view.compare());
+        this.view.hideInstructionButtons();
         await this.view.buildSuspense();
+        
         if(this.view.compare()) {
 
             this.view.drawingsMatch(true);
-            
-            if(this.model.checkTime()){
-                this.model.nextProblem();
-                this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems());
-            }
+            this.view.completionTime(this.model.getProgramExecutionTime(), this.model.getCurrentProblem().getMaximumCompletionTime());
         } 
         else {
             this.view.drawingsMatch(false);
         }
-
-        this.view.completionTime(this.model.getProgramExecutionTime(), this.model.getCurrentProblem().getMaximumCompletionTime());
     }
 
     public coreChanged() {
@@ -100,6 +95,7 @@ export class Controller {
     public nextProblem() {
         this.model.nextProblem();
         this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems());
+        this.view.initializeButtons();
     }
 
     public drawProblem(){

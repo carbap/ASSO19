@@ -27,9 +27,10 @@ export abstract class UI {
         this.nextButton = nextButton;
         this.runButton = runButton;
         this.nextProblemButton = nextProblemButton;
-        this.initializeButtons();
         
         this.infoDiv = infoDiv;
+
+        this.initializeButtons();
 
         this.drawGrids(drawingCanvas);
         this.drawGrids(problemCanvas);
@@ -46,6 +47,9 @@ export abstract class UI {
         this.nextButton.style.visibility = 'hidden';
         this.runButton.style.visibility = 'hidden';
         this.nextProblemButton.style.visibility = 'hidden';
+
+        this.infoDiv.innerHTML = "Information related to program compilation and solution verification";
+        this.infoDiv.style.color = 'black';
     }
 
     public activateCompilation() {
@@ -69,7 +73,7 @@ export abstract class UI {
     public compileFailed(errors: Array<string>) {
         let info: string = "Compilation failed <br/>";
         for(let error of errors) {
-            info += error + "<br/>";
+            info += `${error}` + "<br/>";
         }
 
         this.infoDiv.innerHTML = info;
@@ -87,7 +91,7 @@ export abstract class UI {
         }
     }
 
-    private hideInstructionButtons() {
+    public hideInstructionButtons() {
         this.nextButton.style.visibility = 'hidden';
         this.runButton.style.visibility = 'hidden';
     }
@@ -95,22 +99,23 @@ export abstract class UI {
     public drawingsMatch(match: boolean) {
         this.hideInstructionButtons();
         if(match){
-            this.nextProblemButton.style.visibility = 'visible';
-            this.infoDiv.innerHTML = "IT'S A MATCH!!!\n";
+            this.infoDiv.innerHTML = "IT'S A MATCH!!! <br/>";
             this.infoDiv.style.color = 'green';
         }
         else{
-            this.infoDiv.innerHTML = "DRAWINGS DON'T MATCH\n"
+            this.infoDiv.innerHTML = "DRAWINGS DON'T MATCH <br/>"
             this.infoDiv.style.color = 'red';
         }
     }
 
     public completionTime(time: number, maximumTime: number){
         this.infoDiv.innerHTML += "Completion time: " + time + "s. Maximum allowed time: " + maximumTime + "s.";
-        if(time <= maximumTime)
+        if(time <= maximumTime) {
+            this.nextProblemButton.style.visibility = 'visible';
             this.infoDiv.style.color = 'green';
-        else
+        } else {
             this.infoDiv.style.color = 'red';
+        }
     }
 
     public drawProblem(problem: Problem){
