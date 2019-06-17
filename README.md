@@ -63,7 +63,8 @@ Allows having multiple geometric shapes sharing commom properties. Facilitates a
 All implemented shapes can be found in this [folder](proj/src/model/shapes). All of them extend the Shape base class.
 
 #### Factory Method
-(create shapes)
+The [PaperFactory](proj/src/view/paperJS/PaperFactory.ts) facilitates the creation of [PaperShapes](proj/src/view/paperJS/paper_shapes) from a given Shape.
+A [PaperShape](proj/src/view/paperJS/paper_shapes/PaperShape.ts) has a [Path](proj/dist/paperJS/dist/paper.d.ts), which is the Paper.js class that is responsible for actually drawing shapes.
 
 #### Composite
 To group shapes together (Intersection, Union). A group is still a shape and can be treated as such.
