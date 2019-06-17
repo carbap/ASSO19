@@ -238,6 +238,10 @@ export class Kernel {
 
         this.problemIterator++;
     }
+    
+    public getErrors(): Array<string> {
+        return this.errors;
+    }
 
     public getRuntimeShapes(): Shape[] {
         return this.runtimeShapes;
