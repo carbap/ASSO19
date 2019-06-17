@@ -74,12 +74,13 @@ export abstract class UI {
     }
 
     public async buildSuspense() {
-        for(let i = 1; i < 3; i++) {
+        this.infoDiv.style.color = 'black';
+        for(let i = 1; i < 5; i++) {
             let timeBetweenUpdate = 200;
-            this.infoDiv.innerHTML = "Checking solution"; let promise = new Promise((resolve, reject) => {setTimeout(() => resolve(), 200)}); await promise;
-            this.infoDiv.innerHTML = "Checking solution."; let promise2 = new Promise((resolve, reject) => {setTimeout(() => resolve(), 200)}); await promise;
-            this.infoDiv.innerHTML = "Checking solution.."; let promise3 = new Promise((resolve, reject) => {setTimeout(() => resolve(), 200)}); await promise;
-            this.infoDiv.innerHTML = "Checking solution..."; let promise4 = new Promise((resolve, reject) => {setTimeout(() => resolve(), 200)}); await promise;
+            this.infoDiv.innerHTML = "Checking solution"; let promise = new Promise((resolve, reject) => {setTimeout(() => resolve(), timeBetweenUpdate)}); await promise;
+            this.infoDiv.innerHTML = "Checking solution."; let promise2 = new Promise((resolve, reject) => {setTimeout(() => resolve(), timeBetweenUpdate)}); await promise2;
+            this.infoDiv.innerHTML = "Checking solution.."; let promise3 = new Promise((resolve, reject) => {setTimeout(() => resolve(), timeBetweenUpdate)}); await promise3;
+            this.infoDiv.innerHTML = "Checking solution..."; let promise4 = new Promise((resolve, reject) => {setTimeout(() => resolve(), timeBetweenUpdate)}); await promise4;
         }
         //ESTA A FALHAR
     }
@@ -102,7 +103,7 @@ export abstract class UI {
         await this.buildSuspense();
 
         this.hideInstructionButtons();
-        this.infoDiv.innerHTML = "DRAWING DON'T MATCH"
+        this.infoDiv.innerHTML = "DRAWINGS DON'T MATCH"
         this.infoDiv.style.color = 'red';
     }
 
