@@ -32,7 +32,7 @@ The Controller has the role of a Mediator, so the communication between Model an
 - Advantages:
     - High coesion inside modules and loose coupling between them.
     - We can render figures in multiple ways (SVG, HTMLCanvas, ...) just by adding more views.
-    - Changes in the model's logic should not affect the way the input (controller) and the rendering (view) works.
+    - Changes in the model's logic should not affect the way the controller and the rendering (view) works.
 
 - Disadvantages:
     - Adding more layers of indirection.
