@@ -69,3 +69,22 @@ draw t1
 draw t2
 draw inter1
 draw inter2
+
+//PROBLEM 4
+//The drawings match, but unable to complete within the time limit (22s/20s)
+create triangle t1 100 350 450 350 275 50
+create circle c1 275 275 100
+create circle c2 275 175 75
+create intersection inter c1 c2
+draw t1
+draw inter
+
+//The drawings match and completed within time limit (16s/20s)
+CORE1:
+create triangle t1 100 350 450 350 275 50
+draw t1
+CORE2:
+create circle c1 275 275 100
+create circle c2 275 175 75
+create intersection inter c1 c2
+draw inter

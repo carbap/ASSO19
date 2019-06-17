@@ -73,7 +73,7 @@ function problem3(){
     let square = new Shapes.Square("square", 200, 200, 150);
     let inter1 = new Shapes.Intersection("inter", [square, triangle1]);
     let inter2 = new Shapes.Intersection("inter", [square, triangle2]);
-    return new Problem(50, square, triangle1, triangle2, inter1, inter2);
+    return new Problem(35, square, triangle1, triangle2, inter1, inter2);
 }
 
 function problem4(){
@@ -81,7 +81,7 @@ function problem4(){
     let circle1 = new Shapes.Circle("circle1", 275, 275, 100);
     let circle2 = new Shapes.Circle("circle2", 275, 175, 75);
     let inter = new Shapes.Intersection("inter", [circle1, circle2]);
-    return new Problem(50, triangle, inter);
+    return new Problem(20, triangle, inter);
 }
 /**
  * DEAD LOCK EXCELENT EXAMPLE
