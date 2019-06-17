@@ -56,3 +56,16 @@ draw s1
 CORE2:
 create circle c1 275 175 25
 draw c1
+
+//PROBLEM 3
+//The drawings match, but unable to complete within the time limit (30s/xs)
+create triangle t1 100 100 400 100 100 450
+create triangle t2 150 450 450 450 450 100
+create square s1 200 200 150
+create intersection inter1 s1 t1
+create intersection inter2 s1 t2
+draw s1
+draw t1
+draw t2
+draw inter1
+draw inter2
