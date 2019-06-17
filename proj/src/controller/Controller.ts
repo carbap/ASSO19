@@ -16,6 +16,8 @@ export class Controller {
             if(arr[i] === "") {
                 arr.splice(i, 1);
                 i--;
+            } else {
+                arr[i] = arr[i].trim();
             }
         }
     }

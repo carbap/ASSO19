@@ -104,7 +104,7 @@ class ScaleExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 2) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to scale shape. Should be: <ID> <scaleFactor>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments to scale shape. Should be: [ID] [scaleFactor]");
             return false;
         }
 
@@ -112,7 +112,7 @@ class ScaleExpression extends Expression {
         let scaleFactor: number = Number(args[1]);
 
         if(isNaN(scaleFactor)) {
-            (<any> this.rootExpression).addError("<scaleFactor> must be a number");
+            (<any> this.rootExpression).addError("[scaleFactor] must be a number");
             return false;
         }
 
@@ -139,7 +139,7 @@ class TranslateExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 3) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to translate shape. Should be: <ID> <translateX> <translateY>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments to translate shape. Should be: [ID] [translateX] [translateY]");
             return false;
         }
 
@@ -148,7 +148,7 @@ class TranslateExpression extends Expression {
         let translateY: number = Number(args[2]);
 
         if(isNaN(translateX) || isNaN(translateY)) {
-            (<any> this.rootExpression).addError("<translateX> and <translateY> must all be numbers");
+            (<any> this.rootExpression).addError("[translateX] and [translateY] must all be numbers");
             return false;
         }
 
@@ -175,14 +175,14 @@ class WaitExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 1) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments for wait instruction. Should be: <coreID (1, 2 or 3)>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments for wait instruction. Should be: [coreID (1, 2 or 3)]");
             return false;
         }
 
         let coreID: number = Number(args[0]);
 
         if(isNaN(coreID) || coreID < 1 || coreID > 3) {
-            (<any> this.rootExpression).addError("<coreID> in wait isntruction must a number between 1 and 3");
+            (<any> this.rootExpression).addError("[coreID] in wait isntruction must a number between 1 and 3");
             return false;
         }
 
@@ -271,7 +271,7 @@ class CreateCircleExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 4) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to create circle. Should be: <ID> <centerX> <centerY> <radius>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create circle. Should be: [ID] [centerX] [centerY] [radius]");
             return false;
         }
 
@@ -281,7 +281,7 @@ class CreateCircleExpression extends Expression {
         let radius: number = Number(args[3]);
 
         if(isNaN(centerX) || isNaN(centerY) || isNaN(radius)) {
-            (<any> this.rootExpression).addError("<centerX> <centerY> and <radius> must all be numbers");
+            (<any> this.rootExpression).addError("[centerX] [centerY] and [radius] must all be numbers");
             return false;
         }
 
@@ -302,7 +302,7 @@ class CreateIntersectionExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length < 3) {
-            (<any> this.rootExpression).addError("Not enough arguments to create intersection. You need at least 3 arguments. Should be: <newShapeID> <existingShape1ID> <existingShape2ID> ... <existingShapeNID>");
+            (<any> this.rootExpression).addError("Not enough arguments to create intersection. You need at least 3 arguments. Should be: [newShapeID] [existingShape1ID] [existingShape2ID] ... [existingShapeNID]");
             return false;
         }
 
@@ -333,26 +333,26 @@ class CreateSquareExpression extends Expression {
     constructor(private rootExpression: Expression){ super(); }
 
     public interpret(context: string): boolean {
-        // <ID> <centerX> <centerY> <size>
+        // <ID> <topLeftX> <topLeftY> <size>
         
         let args: string[] = context.split(' ');
 
         if(args.length != 4) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to create square. Should be: <ID> <centerX> <centerY> <size>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create square. Should be: [ID] [topLeftX] [topLeftY] [size]");
             return false;
         }
 
         let ID: string = args[0];
-        let centerX: number = Number(args[1]);
-        let centerY: number = Number(args[2]);
+        let topLeftX: number = Number(args[1]);
+        let topLeftY: number = Number(args[2]);
         let size: number = Number(args[3]);
 
-        if(isNaN(centerX) || isNaN(centerY) || isNaN(size)) {
-            (<any> this.rootExpression).addError("<centerX> <centerY> and <size> must all be numbers");
+        if(isNaN(topLeftX) || isNaN(topLeftY) || isNaN(size)) {
+            (<any> this.rootExpression).addError("[topLeftX] [topLeftY] and [size] must all be numbers");
             return false;
         }
 
-        let circle = new Shapes.Square(ID, centerX, centerY, size);
+        let circle = new Shapes.Square(ID, topLeftX, topLeftY, size);
         let command = new Commands.CreateShapeCommand(this.rootExpression.getKernel(), circle);
         (<any> this.rootExpression).setCommand(command);
 
@@ -369,7 +369,7 @@ class CreateTriangleExpression extends Expression {
         let args: string[] = context.split(' ');
 
         if(args.length != 7) {
-            (<any> this.rootExpression).addError("Invalid amount of arguments to create triangle. Should be: <ID> <p1X> <p1Y> <p2X> <p2Y> <p3X> <p3Y>");
+            (<any> this.rootExpression).addError("Invalid amount of arguments to create triangle. Should be: [ID] [p1X] [p1Y] [p2X] [p2Y] [p3X] [p3Y]");
             return false;
         }
 
@@ -384,7 +384,7 @@ class CreateTriangleExpression extends Expression {
         if(isNaN(p1X) || isNaN(p1Y) ||
         isNaN(p2X) || isNaN(p2Y) ||
         isNaN(p3X) || isNaN(p3Y)) {
-            (<any> this.rootExpression).addError("<p1X> <p1Y> <p2X> <p2Y> <p3X> and <p3Y> must all be numbers");
+            (<any> this.rootExpression).addError("[p1X] [p1Y] [p2X] [p2Y] [p3X] and [p3Y] must all be numbers");
             return false;
         }
 
