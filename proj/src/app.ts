@@ -64,14 +64,36 @@ window.onload = () => {
 }
 
 function defineProblems(): Array<Problem> {
-    let square1 = new Shapes.Square("square1", 0, 0, 50);
-    let circle1 = new Shapes.Circle("circle1", 25, 25, 25);
-    var prob1 = new Problem(100, square1, circle1);
+    return [problem1(), problem2(), problem3(), problem4()];
+}
 
-    let circle2 = new Shapes.Circle("circle1", 225, 225, 50);
-    var prob2 = new Problem(100, square1, circle2);
+function problem1(){
+    let square = new Shapes.Square("square", 0, 0, 50);
+    let circle = new Shapes.Circle("circle", 25, 25, 25);
+    return new Problem(15, square, circle);
+}
 
-    return [prob1, prob2];
+function problem2(){
+    let triangle1 = new Shapes.Triangle("triangle1", 100, 100, 400, 100, 100, 450);
+    let triangle2 = new Shapes.Triangle("triangle1", 150, 450, 450, 450, 450, 100);
+    let square = new Shapes.Square("square", 200, 200, 150);
+    let inter = new Shapes.Intersection("inter", [square, triangle1]);
+    return new Problem(15, inter);
+}
+
+function problem3(){
+    let square1 = new Shapes.Square("square1", 100, 100, 150);
+    let square2 = new Shapes.Square("square2", 300, 100, 150);
+    let circle = new Shapes.Circle("circle", 275, 175, 25);
+    return new Problem(15, square1, square2, circle);
+}
+
+function problem4(){
+    let circle1 = new Shapes.Circle("circle1", 275, 275, 100);
+    let circle2 = new Shapes.Circle("circle2", 275, 175, 75);
+    let triangle = new Shapes.Triangle("triangle", 100, 350, 450, 350, 275, 50);
+    let inter = new Shapes.Intersection("inter", [circle1, circle2, triangle]);
+    return new Problem(50, inter);
 }
 
 //EXAMPLE PAPER STUFF FOR QUICK ACCESS
