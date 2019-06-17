@@ -82,7 +82,7 @@ export class Controller {
         if(this.view.compare()) {
             this.view.problemSolved();
             this.model.nextProblem();
-            this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems().length);
+            this.view.updateProblem(this.model.getProblemIterator(), this.model.getProblems());
         } else {
             this.view.problemNotSolved();
         }

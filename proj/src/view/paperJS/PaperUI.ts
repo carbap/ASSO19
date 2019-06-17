@@ -3,6 +3,7 @@ import { PaperScope, Raster, } from 'paper';
 import * as Shapes from '../../model/shapes';
 import * as PaperShapes from './paper_shapes';
 import { Shape } from '../../model/shapes/Shape';
+import { Problem } from '../../model/Problem';
 import { Rectangle, Path, Color, Point, Size } from 'paper';
 
 export class PaperUI extends UI {
@@ -102,8 +103,9 @@ export class PaperUI extends UI {
         }
     }
 
-    public updateProblem(problemIterator: number, numProblems: number){
-        this.currentProblem.innerText = "Problem " + (problemIterator+1) + "/" + numProblems;
+    public updateProblem(problemIterator: number, problems: Array<Problem>){
+        this.currentProblem.innerText = "Problem " + (problemIterator+1) + "/" + problems.length;
+        this.drawProblem(problems[problemIterator]);
     }
 
     public similarColor(color1: number, color2: number){

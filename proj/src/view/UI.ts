@@ -110,5 +110,5 @@ export abstract class UI {
         this.draw(problem.getShapes(), false);
     }
 
-    public abstract updateProblem(problemIterator: number, numProblems: number): void;
+    public abstract updateProblem(problemIterator: number, problems: Array<Problem>): void;
 }

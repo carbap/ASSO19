@@ -37,7 +37,7 @@ window.onload = () => {
 
     var problems: Array<Problem> = defineProblems();
     model.setProblems(problems); //TO DO: passar os problems pelo construtor do Kernel
-    view.updateProblem(model.getProblemIterator(), model.getProblems().length);
+    view.updateProblem(model.getProblemIterator(), model.getProblems());
     controller.drawProblem(); 
 
     if(compileButton) 
