@@ -61,26 +61,27 @@ function problem1(){
 }
 
 function problem2(){
-    let triangle1 = new Shapes.Triangle("triangle1", 100, 100, 400, 100, 100, 450);
-    let triangle2 = new Shapes.Triangle("triangle1", 150, 450, 450, 450, 450, 100);
-    let square = new Shapes.Square("square", 200, 200, 150);
-    let inter = new Shapes.Intersection("inter", [square, triangle1]);
-    return new Problem(15, inter);
-}
-
-function problem3(){
     let square1 = new Shapes.Square("square1", 100, 100, 150);
     let square2 = new Shapes.Square("square2", 300, 100, 150);
     let circle = new Shapes.Circle("circle", 275, 175, 25);
     return new Problem(15, square1, square2, circle);
 }
 
+function problem3(){
+    let triangle1 = new Shapes.Triangle("triangle1", 100, 100, 400, 100, 100, 450);
+    let triangle2 = new Shapes.Triangle("triangle1", 150, 450, 450, 450, 450, 100);
+    let square = new Shapes.Square("square", 200, 200, 150);
+    let inter1 = new Shapes.Intersection("inter", [square, triangle1]);
+    let inter2 = new Shapes.Intersection("inter", [square, triangle2]);
+    return new Problem(50, square, triangle1, triangle2, inter1, inter2);
+}
+
 function problem4(){
+    let triangle = new Shapes.Triangle("triangle", 100, 350, 450, 350, 275, 50);
     let circle1 = new Shapes.Circle("circle1", 275, 275, 100);
     let circle2 = new Shapes.Circle("circle2", 275, 175, 75);
-    let triangle = new Shapes.Triangle("triangle", 100, 350, 450, 350, 275, 50);
-    let inter = new Shapes.Intersection("inter", [circle1, circle2, triangle]);
-    return new Problem(50, inter);
+    let inter = new Shapes.Intersection("inter", [circle1, circle2]);
+    return new Problem(50, triangle, inter);
 }
 /**
  * DEAD LOCK EXCELENT EXAMPLE
