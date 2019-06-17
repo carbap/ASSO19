@@ -15,8 +15,8 @@ export class PaperUI extends UI {
 
     constructor(drawingCanvas: HTMLCanvasElement, problemCanvas: HTMLCanvasElement, currentProblem: HTMLLabelElement,
         compileButton: HTMLElement, nextButton: HTMLElement, runButton: HTMLElement, nextProblemButton: HTMLElement,
-        infoDiv: HTMLElement) {
-        super(drawingCanvas, problemCanvas, compileButton, nextButton, runButton, nextProblemButton, infoDiv);
+        infoDiv: HTMLElement, coresText: Array<HTMLElement>) {
+        super(drawingCanvas, problemCanvas, compileButton, nextButton, runButton, nextProblemButton, infoDiv, coresText);
 
         this.drawScope = new PaperScope();
         this.problemScope = new PaperScope();

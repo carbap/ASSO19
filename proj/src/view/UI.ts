@@ -7,18 +7,21 @@ export abstract class UI {
     protected problemCanvas: any;
 
     private compileButton: HTMLElement;
+    private compileBtnHandler: any;
     private nextButton: HTMLElement;
     private runButton: HTMLElement;
     private nextProblemButton: HTMLElement;
 
     private infoDiv: HTMLElement;
 
+    private coresText: Array<HTMLElement>
+
     protected drawingShapes: Array<Shape> = [];
     protected problemShapes : Array<Shape> = [];
 
     constructor(drawingCanvas: any, problemCanvas: any, 
         compileButton: HTMLElement, nextButton: HTMLElement, runButton: HTMLElement, nextProblemButton: HTMLElement,
-        infoDiv: HTMLElement) {
+        infoDiv: HTMLElement, coresText: Array<HTMLElement>) {
 
         this.drawingCanvas = drawingCanvas;
         this.problemCanvas = problemCanvas;
@@ -29,6 +32,8 @@ export abstract class UI {
         this.nextProblemButton = nextProblemButton;
         
         this.infoDiv = infoDiv;
+
+        this.coresText = coresText;
 
         this.initializeButtons();
 
@@ -43,28 +48,28 @@ export abstract class UI {
     public abstract drawGrids(canvas: any): void;
 
     public initializeButtons() {
-        this.compileButton.style.visibility = 'visible';
-        this.nextButton.style.visibility = 'hidden';
-        this.runButton.style.visibility = 'hidden';
-        this.nextProblemButton.style.visibility = 'hidden';
+        (<HTMLButtonElement> this.compileButton).disabled = false;
+        (<HTMLButtonElement> this.nextButton).disabled = true;
+        (<HTMLButtonElement> this.runButton).disabled = true;
+        (<HTMLButtonElement> this.nextProblemButton).disabled = true;
 
         this.infoDiv.innerHTML = "Information related to program compilation and solution verification";
         this.infoDiv.style.color = 'black';
     }
 
     public activateCompilation() {
-        this.compileButton.style.visibility = 'visible';
-        this.nextButton.style.visibility = 'hidden';
-        this.runButton.style.visibility = 'hidden';
+        (<HTMLButtonElement> this.compileButton).disabled = false;
+        (<HTMLButtonElement> this.nextButton).disabled = true;
+        (<HTMLButtonElement> this.runButton).disabled = true;
 
         this.infoDiv.innerHTML = "Information related to program compilation and solution verification";
         this.infoDiv.style.color = 'black';
     }
 
     public compileSuccessful() {
-        this.compileButton.style.visibility = 'hidden';
-        this.nextButton.style.visibility = 'visible';
-        this.runButton.style.visibility = 'visible';
+        (<HTMLButtonElement> this.compileButton).disabled = true;
+        (<HTMLButtonElement> this.nextButton).disabled = false;
+        (<HTMLButtonElement> this.runButton).disabled = false;
 
         this.infoDiv.innerHTML = "Compilation successful";
         this.infoDiv.style.color = 'green';
@@ -92,8 +97,8 @@ export abstract class UI {
     }
 
     public hideInstructionButtons() {
-        this.nextButton.style.visibility = 'hidden';
-        this.runButton.style.visibility = 'hidden';
+        (<HTMLButtonElement> this.nextButton).disabled = true;
+        (<HTMLButtonElement> this.runButton).disabled = true;
     }
 
     public drawingsMatch(match: boolean) {
@@ -111,7 +116,7 @@ export abstract class UI {
     public completionTime(time: number, maximumTime: number){
         this.infoDiv.innerHTML += "Completion time: " + time + "s. Maximum allowed time: " + maximumTime + "s.";
         if(time <= maximumTime) {
-            this.nextProblemButton.style.visibility = 'visible';
+            (<HTMLButtonElement> this.nextProblemButton).disabled = false;
             this.infoDiv.style.color = 'green';
         } else {
             this.infoDiv.style.color = 'red';
@@ -123,4 +128,41 @@ export abstract class UI {
     }
 
     public abstract updateProblem(problemIterator: number, problems: Array<Problem>): void;
+
+    private removeEmpty(arr: string[]) {
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i] === "") {
+                arr.splice(i, 1);
+                i--;
+            } else {
+                arr[i] = arr[i].trim();
+                arr[i] = arr[i].replace(/\s+/g, " ");
+            }
+        }
+    }
+
+    public filterInstructions() {
+        let processedCoresText = [];
+
+        for(let coreText of this.coresText) {
+            let processedInstructions: string[] = (<HTMLTextAreaElement> coreText).value.split("\n");
+            this.removeEmpty(processedInstructions);
+            processedCoresText.push(processedInstructions);
+        }
+        console.log(processedCoresText);
+
+        this.compileBtnHandler(... processedCoresText);
+    }
+
+    public setHandlers(compileBtnHandler: any, nextBtnHandler: any, runBtnHandler: any, nextProblemBtnHandler: any, coresTextHandler: any) {
+        this.compileBtnHandler = compileBtnHandler;
+        this.compileButton.onclick = this.filterInstructions.bind(this);
+
+        this.nextButton.onclick = nextBtnHandler;
+        this.runButton.onclick = runBtnHandler;
+        this.nextProblemButton.onclick = nextProblemBtnHandler;
+        for(let coreText of this.coresText) {
+            coreText.onkeydown = coresTextHandler;
+        }
+    }
 }

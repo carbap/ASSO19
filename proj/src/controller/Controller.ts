@@ -22,21 +22,13 @@ export class Controller {
         }
     }
     
-    public compile() {
+    public compile(core1Instructions: string[], core2Instructions: string[], core3Instructions: string[]) {
         let core1Text = <HTMLTextAreaElement> document.getElementById('core1_instructions');
         let core2Text = <HTMLTextAreaElement> document.getElementById('core2_instructions');
         let core3Text = <HTMLTextAreaElement> document.getElementById('core3_instructions');
 
         if(core1Text && core2Text && core3Text) {
-            let core1Instructions: string[] = core1Text.value.split("\n");
-            let core2Instructions: string[] = core2Text.value.split("\n");
-            let core3Instructions: string[] = core3Text.value.split("\n");
-            this.removeEmpty(core1Instructions);
-            this.removeEmpty(core2Instructions);
-            this.removeEmpty(core3Instructions);
-            console.log("CORE 1", core1Instructions);
-            console.log("CORE 2", core2Instructions);
-            console.log("CORE 3", core3Instructions);
+            
             this.model.setCores(core1Instructions, core2Instructions, core3Instructions);
         } else {
             console.log("PROBLEMAS A IR BUSCAR TEXT AREAS DOS CORES");

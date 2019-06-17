@@ -36,7 +36,16 @@
                     <li>draw <b>id</b> (time: 1s)</li>
                     <li>wait <b>coreID</b> (no time required)</li>
                     <li>signal (no time required)</li>
-                  </ul>  
+                </ul>
+                <b class="p-1">Notes</b>
+                <ul class="p-1" style="list-style-type:none;">
+                    <li>- The objective of the game is to create a drawing equal to the problem, while respecting the execution time</li>
+                    <li>- All 3 cores execute code in parallel. That being said you should be careful not to write instructions that depende on the same variable, 
+                        that might execute at similar time in different cores. If you want to assure synchronization/sequencialization we advise you to use wait/signal instructions
+                        (but be careful to no create DEAD LOCKS)</li>
+                    <li>- Each grid square has a size of 50 units</li>
+                    <li>- The program execution time will be the one of the core with biggest execution</li>
+                </ul>
             </div>
         </div>
 

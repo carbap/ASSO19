@@ -30,37 +30,24 @@ window.onload = () => {
     var nextProblemButton = <HTMLElement>document.getElementById('nextProblem');
     var infoZone = <HTMLElement>document.getElementById('info');
     
-    console.log("compileButton", compileButton);
-    console.log("info zone", infoZone);
-    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, currentProblem, compileButton, nextButton, runButton, nextProblemButton, infoZone);
+    let core1 = <HTMLTextAreaElement> document.getElementById('core1_instructions');
+    let core2 = <HTMLTextAreaElement> document.getElementById('core2_instructions');
+    let core3 = <HTMLTextAreaElement> document.getElementById('core3_instructions');
+
+    var view: UI = new UIs.PaperUI(drawCanvas, problemCanvas, currentProblem, 
+                                    compileButton, nextButton, runButton, nextProblemButton, 
+                                    infoZone, [core1, core2, core3]);
+
     controller = new Controller(model, view);
+
+    view.setHandlers(controller.compile.bind(controller), controller.next.bind(controller), 
+                    controller.run.bind(controller), controller.nextProblem.bind(controller), 
+                    controller.coreChanged.bind(controller));
 
     var problems: Array<Problem> = defineProblems();
     model.setProblems(problems); //TO DO: passar os problems pelo construtor do Kernel
     view.updateProblem(model.getProblemIterator(), model.getProblems());
     controller.drawProblem(); 
-
-    let core1 = <HTMLTextAreaElement> document.getElementById('core1_instructions');
-    let core2 = <HTMLTextAreaElement> document.getElementById('core2_instructions');
-    let core3 = <HTMLTextAreaElement> document.getElementById('core3_instructions');
-
-    if(compileButton) 
-        compileButton.onclick = controller.compile.bind(controller);
-
-    if(nextButton)
-        nextButton.onclick = controller.next.bind(controller);
-
-    if(runButton)
-        runButton.onclick = controller.run.bind(controller);
-
-    if(nextProblemButton)
-        nextProblemButton.onclick = controller.nextProblem.bind(controller);
-
-    if(core1 && core2 && core3) {
-        core1.onkeydown = controller.coreChanged.bind(controller);
-        core2.onkeydown = controller.coreChanged.bind(controller);
-        core3.onkeydown = controller.coreChanged.bind(controller);
-    }
 }
 
 function defineProblems(): Array<Problem> {
@@ -95,7 +82,22 @@ function problem4(){
     let inter = new Shapes.Intersection("inter", [circle1, circle2, triangle]);
     return new Problem(50, inter);
 }
-
+/**
+ * DEAD LOCK EXCELENT EXAMPLE
+ * Core 1
+ * create square s1 0 0 50
+ * signal
+ * 
+ * Core 2
+ * create circle c1 25    25      25    
+ * signal
+ * 
+ * Core 3
+ * wait 1
+ * wait 2
+ * draw s1
+ * draw c1
+ */
 //EXAMPLE PAPER STUFF FOR QUICK ACCESS
 /*
 paper.setup('drawCanvas'); // É importante fazer quando a apalicaçao abre, para o paperjs saber em que canvas vai desenhar
