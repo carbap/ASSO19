@@ -41,25 +41,37 @@ The Controller has the role of a Mediator, so the communication between Model an
 ### Design patterns:
 
 #### Command
-(for encapsulating user's code as a command)
+For encapsulating user's code as a command.
+
+All implemented commands can be found in this [folder](proj/src/model/commands).
+
+Every command has an associated shape and duration (the time to execute the instruction, mentioned earlier). It also has the model in which the command will be executed. This could be be useful to execute commands differently depending on the model.
 
 #### Interpreter
-(to interpret user's commands)
+Used to interpret user's commands.
+
+The code related to interpreting commands can be found entirely in the [Expression](proj/src/model/interpreter/Expression.ts) class.
 
 #### Iterator
-(to find the next instruction that should be run according to the times they take to execute)
+To find the next instruction that should be run according to the times they take to execute.
+
+The code related to this can be found in the [Kernel](proj/src/model/Kernel.ts) class.
 
 #### Strategy
-(to draw multiple shapes; facilitates adding more shapes)
+Allows having multiple geometric shapes sharing commom properties. Facilitates adding more shapes.
+
+All implemented shapes can be found in this [folder](proj/src/model/shapes). All of them extend the Shape base class.
 
 #### Factory Method
 (create shapes)
 
 #### Composite
-(group shapes together; a group is still a shape and has draw method)
+To group shapes together (Intersection, Union). A group is still a shape and can be treated as such.
+
+The [Intersection](proj/src/model/shapes/Intersection.ts) and [Union](proj/src/model/shapes/Union.ts) shapes have an array of shapes that constitute them. The shapes on this array are a clone of the ones that were used at the time of creating the group. Performing an operation over a group (Intersection or Union) only changes that group; the original shapes will be kept the same.
 
 #### Null Object
-(Null Shape used for signal and wait commands because they dont act on a shape. However, Command base class must always receive a Shape)
+The [Null Shape](proj/src/model/shapes/NullShape.ts) class was used for signal and wait commands because they dont act on a shape. However, the Command base class must always receive a Shape.
 
 ## Instructions:
 
@@ -96,7 +108,7 @@ create circle c1 275 175 25
 draw c1
 ```
 
-Even better execution time using multiple cores (9s/18s):
+Even better execution time using multiple cores (9s/15s):
 
 <b>Core 1</b>
 ```
