@@ -10,6 +10,7 @@ export class PaperSquare extends PaperShape {
         var size = new Size(square.getSize(), square.getSize());
         this.shape = new Path.Rectangle(topLeftCorner, size);
         this.shape.fillColor = 'black';
+        this.shape.rotate(square.getRotation());
         console.log("Instancing PaperSquare");
     }
 }
