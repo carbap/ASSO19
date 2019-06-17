@@ -52,22 +52,59 @@ The Controller has the role of a Mediator, so the communication between Model an
 - check if user generated figure matches the proposed image
 
 
-### Example of valid user code:
+## Instructions:
 
-create rectangle r1<br>
-translate r1 100 0<br>
-scale r1 2<br>
-draw r1 <br>
+The index.html page itself contains information about all the instructions available to the user, namely the arguments they take and the time associated to them.<br>
+In this section we will provide some possible solutions for the existing problems, that could be used for testing:
 
-create circle c1<br>
-create circle c2<br>
+### Problem 1:
+```
+create square s1 0 0 50
+draw s1
+create circle c1 25 25 25
+draw c1
+```
 
-create intersection inter1 rect1 circle1 circle2<br>
-draw inter1<br>
+### Problem 2:
 
-create circle c3<br>
-create intersection inter2 inter1 circle3<br>
-draw inter2<br>
+### Problem 3:
+
+The drawings match, but unable to complete within the time limit (18s/15s):
+```
+create square s1 100 100 150
+create square s2 300 100 150
+create circle c1 275 175 25
+draw s1
+draw s2
+draw c1
+```
+
+The drawings match and completed within time limit (15s/15s):
+```
+create square s1 100 100 150
+draw s1
+translate s1 200 0
+draw s1
+create circle c1 275 175 25
+draw c1
+```
+
+Even better execution time using multiple cores (9s/18s):
+
+<b>Core 1</b>
+```
+create square s1 100 100 150
+draw s1
+translate s1 200 0
+draw s1
+```
+<b>Core 2</b>
+```
+create circle c1 275 175 25
+draw c1
+```
+
+### Problem 4:
 
 ## Run
 Just open `/proj/index.html` on browser. Simple as that. If you're just trying out the application, there's no need to compile it first.
